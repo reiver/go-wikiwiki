@@ -15,7 +15,7 @@ This is the syntax wiki text markup:
 ```
 ''superscript'
 ((no-op))
-**bold**apple **banana** cherry
+**bold**
 ,,subscript,,
 //italics//
 ::smart-code::
