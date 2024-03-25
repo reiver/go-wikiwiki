@@ -12,7 +12,10 @@ import (
 // For example, one renderer might transcode wiki text into HTML;
 // another renderer might transcode wiki text in ANSI;
 // etc.
-func TranscodeText(renderer Renderer, reader io.Reader) (err error) {
+func TranscodeText(writer io.Writer, renderer Renderer, reader io.Reader) (err error) {
+	if nil == writer {
+		return errNilWriter
+	}
 	if nil == renderer {
 		return errNilRenderer
 	}
@@ -20,7 +23,7 @@ func TranscodeText(renderer Renderer, reader io.Reader) (err error) {
 		return errNilReader
 	}
 
-	var texttranscoder TextTranscoder = NewTextTranscoder(renderer)
+	var texttranscoder TextTranscoder = NewTextTranscoder(writer, renderer)
 	if nil == texttranscoder {
 		return errNilTextTranscoder
 	}

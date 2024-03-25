@@ -9,4 +9,5 @@ const (
 	errNilReceiver       = erorr.Error("wikiwiki: nil receiver")
 	errNilRenderer       = erorr.Error("wikiwiki: nil renderer")
 	errNilTextTranscoder = erorr.Error("wikiwiki: nil text-transcoder")
+	errNilWriter         = erorr.Error("wikiwiki: nil writer")
 )

@@ -13,6 +13,7 @@ type TextTranscoder interface {
 }
 
 type internalTextTranscoder struct {
+	writer io.Writer
 	renderer Renderer
 
 	buffer opt.Optional[rune]
@@ -20,8 +21,9 @@ type internalTextTranscoder struct {
 	stack stack[rune]
 }
 
-func NewTextTranscoder(renderer Renderer) TextTranscoder {
+func NewTextTranscoder(writer io.Writer, renderer Renderer) TextTranscoder {
 	return &internalTextTranscoder{
+		writer:writer,
 		renderer:renderer,
 	}
 }
@@ -36,17 +38,27 @@ func (receiver *internalTextTranscoder) Close() error {
 		return nil
 	}
 
+	writer := receiver.writer
+	if nil == writer {
+		return errNilWriter
+	}
+
 	renderer := receiver.renderer
-	if nil == receiver {
+	if nil == renderer {
 		return errNilRenderer
 	}
 
-	return renderer.RenderRune(value)
+	return renderer.RenderRune(writer, value)
 }
 
 func (receiver *internalTextTranscoder) InterpretRune(r rune) (err error) {
 	if nil == receiver {
 		return errNilReceiver
+	}
+
+	writer := receiver.writer
+	if nil == writer {
+		return errNilWriter
 	}
 
 	renderer := receiver.renderer
@@ -57,7 +69,7 @@ func (receiver *internalTextTranscoder) InterpretRune(r rune) (err error) {
 	{
 		rr, something := receiver.buffer.Get()
 		if something && rr != r {
-			err = renderer.RenderRune(rr)
+			err = renderer.RenderRune(writer, rr)
 			if nil != err {
 				return err
 			}
@@ -65,15 +77,15 @@ func (receiver *internalTextTranscoder) InterpretRune(r rune) (err error) {
 		}
 	}
 
-	var begin func()error
-	var end func()error
-	noop := func() error {
+	var begin func(io.Writer)error
+	var end func(io.Writer)error
+	noop := func(io.Writer) error {
 		return nil
 	}
 
 	switch r {
 	default:
-		return renderer.RenderRune(r)
+		return renderer.RenderRune(writer, r)
 	case '\'': // ''superscript''
 		begin = renderer.BeginSuperScript
 		end   = renderer.EndSuperScript
@@ -117,15 +129,15 @@ func (receiver *internalTextTranscoder) InterpretRune(r rune) (err error) {
 		switch {
 		case (')' != r && ']' != r && '}' != r) && receiver.stack.TopEqual(r):
 			receiver.stack.Pop()
-			return end()
+			return end(writer)
 		case ')' == r && receiver.stack.TopEqual('(') ||
 		     ']' == r && receiver.stack.TopEqual('[') ||
 		     '}' == r && receiver.stack.TopEqual('{'):
 			receiver.stack.Pop()
-			return end()
+			return end(writer)
 		default:
 			receiver.stack.Push(r)
-			return begin()
+			return begin(writer)
 		}
 	} else {
 		receiver.buffer = opt.Something(r)

@@ -126,9 +126,9 @@ func TestTextTranscode(t *testing.T) {
 	testloop: for testNumber, test := range tests {
 
 		var buffer strings.Builder
-		renderer := wikiwikihtml.NewRenderer(&buffer)
+		renderer := wikiwikihtml.NewRenderer()
 
-		var texttranscoder wikiwiki.TextTranscoder = wikiwiki.NewTextTranscoder(renderer)
+		var texttranscoder wikiwiki.TextTranscoder = wikiwiki.NewTextTranscoder(&buffer, renderer)
 
 		for runeNumber, r := range test.Text {
 			err := texttranscoder.InterpretRune(r)

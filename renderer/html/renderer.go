@@ -6,19 +6,14 @@ import (
 	"github.com/reiver/go-wikiwiki"
 )
 
-type internalRenderer struct {
-	writer io.Writer
-}
+type internalRenderer struct {}
 
 // NewRenderer returns a new wiki text to HTML renderer.
-func NewRenderer(writer io.Writer) wikiwiki.Renderer {
-	return internalRenderer{
-		writer:writer,
-	}
+func NewRenderer() wikiwiki.Renderer {
+	return internalRenderer{}
 }
 
-func (receiver internalRenderer) write(s string) error {
-	writer := receiver.writer
+func (receiver internalRenderer) write(writer io.Writer, s string) error {
 	if nil == writer {
 		return errNilWriter
 	}
@@ -27,49 +22,49 @@ func (receiver internalRenderer) write(s string) error {
 	return err
 }
 
-func (receiver internalRenderer) BeginBold() error {
-	return receiver.write("<b>")
+func (receiver internalRenderer) BeginBold(writer io.Writer) error {
+	return receiver.write(writer, "<b>")
 
 }
 
-func (receiver internalRenderer) EndBold() error {
-	return receiver.write("</b>")
+func (receiver internalRenderer) EndBold(writer io.Writer) error {
+	return receiver.write(writer, "</b>")
 }
 
-func (receiver internalRenderer) BeginCode() error {
-	return receiver.write(`<span class="wiki-code">`)
-
-}
-
-func (receiver internalRenderer) EndCode() error {
-	return receiver.write("</span>")
-}
-
-func (receiver internalRenderer) BeginHighLight() error {
-	return receiver.write("<mark>")
-}
-
-func (receiver internalRenderer) EndHighLight() error {
-	return receiver.write("</mark>")
-}
-
-func (receiver internalRenderer) BeginItalics() error {
-	return receiver.write("<i>")
+func (receiver internalRenderer) BeginCode(writer io.Writer) error {
+	return receiver.write(writer, `<span class="wiki-code">`)
 
 }
 
-func (receiver internalRenderer) EndItalics() error {
-	return receiver.write("</i>")
+func (receiver internalRenderer) EndCode(writer io.Writer) error {
+	return receiver.write(writer, "</span>")
+}
+
+func (receiver internalRenderer) BeginHighLight(writer io.Writer) error {
+	return receiver.write(writer, "<mark>")
+}
+
+func (receiver internalRenderer) EndHighLight(writer io.Writer) error {
+	return receiver.write(writer, "</mark>")
+}
+
+func (receiver internalRenderer) BeginItalics(writer io.Writer) error {
+	return receiver.write(writer, "<i>")
 
 }
 
-func (receiver internalRenderer) BeginLink() error {
-	return receiver.write(`<span class="wiki-link">`)
+func (receiver internalRenderer) EndItalics(writer io.Writer) error {
+	return receiver.write(writer, "</i>")
 
 }
 
-func (receiver internalRenderer) EndLink() error {
-	return receiver.write(`</span>`+`<script>`+`(function(){`+
+func (receiver internalRenderer) BeginLink(writer io.Writer) error {
+	return receiver.write(writer, `<span class="wiki-link">`)
+
+}
+
+func (receiver internalRenderer) EndLink(writer io.Writer) error {
+	return receiver.write(writer, `</span>`+`<script>`+`(function(){`+
 		`e=document.querySelector(".wiki-link");`+
 		`n=document.createElement("a");`+
 		`t=e.innerText;`+
@@ -80,63 +75,63 @@ func (receiver internalRenderer) EndLink() error {
 
 }
 
-func (receiver internalRenderer) BeginMonoSpaced() error {
-	return receiver.write("<tt>")
+func (receiver internalRenderer) BeginMonoSpaced(writer io.Writer) error {
+	return receiver.write(writer, "<tt>")
 
 }
 
-func (receiver internalRenderer) EndMonoSpaced() error {
-	return receiver.write("</tt>")
+func (receiver internalRenderer) EndMonoSpaced(writer io.Writer) error {
+	return receiver.write(writer, "</tt>")
 
 }
 
-func (receiver internalRenderer) BeginOverLine() error {
-	return receiver.write(`<span style="text-decoration:overline">`)
+func (receiver internalRenderer) BeginOverLine(writer io.Writer) error {
+	return receiver.write(writer, `<span style="text-decoration:overline">`)
 
 }
 
-func (receiver internalRenderer) EndOverLine() error {
-	return receiver.write("</span>")
+func (receiver internalRenderer) EndOverLine(writer io.Writer) error {
+	return receiver.write(writer, "</span>")
 
 }
 
-func (receiver internalRenderer) BeginSubScript() error {
-	return receiver.write("<sub>")
+func (receiver internalRenderer) BeginSubScript(writer io.Writer) error {
+	return receiver.write(writer, "<sub>")
 
 }
 
-func (receiver internalRenderer) EndSubScript() error {
-	return receiver.write("</sub>")
+func (receiver internalRenderer) EndSubScript(writer io.Writer) error {
+	return receiver.write(writer, "</sub>")
 
 }
 
-func (receiver internalRenderer) BeginSuperScript() error {
-	return receiver.write("<sup>")
+func (receiver internalRenderer) BeginSuperScript(writer io.Writer) error {
+	return receiver.write(writer, "<sup>")
 
 }
 
-func (receiver internalRenderer) EndSuperScript() error {
-	return receiver.write("</sup>")
+func (receiver internalRenderer) EndSuperScript(writer io.Writer) error {
+	return receiver.write(writer, "</sup>")
 
 }
 
-func (receiver internalRenderer) BeginUnderLine() error {
-	return receiver.write("<u>")
+func (receiver internalRenderer) BeginUnderLine(writer io.Writer) error {
+	return receiver.write(writer, "<u>")
 
 }
 
-func (receiver internalRenderer) EndUnderLine() error {
-	return receiver.write("</u>")
+func (receiver internalRenderer) EndUnderLine(writer io.Writer) error {
+	return receiver.write(writer, "</u>")
 
 }
 
-func (receiver internalRenderer) BeginNameValue() error {
-	return receiver.write(`<span class="wiki-name-value">`)
+func (receiver internalRenderer) BeginNameValue(writer io.Writer) error {
+	return receiver.write(writer, `<span class="wiki-name-value">`)
 
 }
 
-func (receiver internalRenderer) EndNameValue() error {
-	return receiver.write(`</span>`+`<script>`+`(function(){`+
+func (receiver internalRenderer) EndNameValue(writer io.Writer) error {
+	return receiver.write(writer, `</span>`+`<script>`+`(function(){`+
 		`e=document.querySelector(".wiki-name-value");`+
 		`m=document.getElementById("local."+e.innerText);`+
 		`if(m){`+
@@ -149,15 +144,15 @@ func (receiver internalRenderer) EndNameValue() error {
 
 }
 
-func (receiver internalRenderer) RenderRune(r rune) error {
+func (receiver internalRenderer) RenderRune(writer io.Writer, r rune) error {
 	switch r {
 	case '&':
-		return receiver.write("&amp;")
+		return receiver.write(writer, "&amp;")
 	case '<':
-		return receiver.write("&lt;")
+		return receiver.write(writer, "&lt;")
 	case '>':
-		return receiver.write("&gt;")
+		return receiver.write(writer, "&gt;")
 	default:
-		return receiver.write(string(r))
+		return receiver.write(writer, string(r))
 	}
 }
