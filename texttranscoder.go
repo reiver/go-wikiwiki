@@ -77,52 +77,39 @@ func (receiver *internalTextTranscoder) InterpretRune(r rune) (err error) {
 		}
 	}
 
-	var begin func(io.Writer)error
-	var end func(io.Writer)error
-	noop := func(io.Writer) error {
-		return nil
-	}
+	var elementrenderer ElementRenderer = noop
 
 	switch r {
 	default:
 		return renderer.RenderRune(writer, r)
 	case '\'': // ''superscript''
-		begin = renderer.BeginSuperScript
-		end   = renderer.EndSuperScript
+		elementrenderer = renderer.SuperScriptRenderer()
 	case '(',')':  // ((no-op))
-		begin = noop
-		end = noop
+		elementrenderer = noop
 	case '*':  // **bold**
-		begin = renderer.BeginBold
-		end   = renderer.EndBold
+		elementrenderer = renderer.BoldRenderer()
 	case ',':  // ,,subscript,,
-		begin = renderer.BeginSubScript
-		end   = renderer.EndSubScript
+		elementrenderer = renderer.SubScriptRenderer()
 	case '/':  // //italics//
-		begin = renderer.BeginItalics
-		end   = renderer.EndItalics
+		elementrenderer = renderer.ItalicsRenderer()
 	case ':':  // ::smartcode::
-		begin = renderer.BeginCode
-		end   = renderer.EndCode
+		elementrenderer = renderer.CodeRenderer()
 	case '[',']':  // [[internal link]]
-		begin = renderer.BeginLink
-		end   = renderer.EndLink
+		elementrenderer = renderer.LinkRenderer()
 	case '_':  // __underline__
-		begin = renderer.BeginUnderLine
-		end   = renderer.EndUnderLine
+		elementrenderer = renderer.UnderLineRenderer()
 	case '`':  // ``mononspaced``
-		begin = renderer.BeginMonoSpaced
-		end   = renderer.EndMonoSpaced
+		elementrenderer = renderer.MonoSpacedRenderer()
 	case '{','}':  // {{name}}
-		begin = renderer.BeginNameValue
-		end   = renderer.EndNameValue
+		elementrenderer = renderer.NameValueRenderer()
 	case '|':  // ||highlight||
-		begin = renderer.BeginHighLight
-		end   = renderer.EndHighLight
+		elementrenderer = renderer.HighLightRenderer()
 	case '‾':  // ‾‾overline‾‾
-		begin = renderer.BeginOverLine
-		end   = renderer.EndOverLine
+		elementrenderer = renderer.OverLineRenderer()
 	}
+
+	var begin func(io.Writer)error = elementrenderer.BeginRender
+	var end func(io.Writer)error = elementrenderer.EndRender
 
 	if opt.Something(r) == receiver.buffer {
 		receiver.buffer = opt.Nothing[rune]()

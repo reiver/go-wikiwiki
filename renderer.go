@@ -13,46 +13,35 @@ type Renderer interface {
 	RenderRune(io.Writer, rune) error
 
 	// **bold**
-	BeginBold(io.Writer) error
-	EndBold(io.Writer) error
+	BoldRenderer() ElementRenderer
 
 	// ||highlight||
-	BeginHighLight(io.Writer) error
-	EndHighLight(io.Writer) error
+	HighLightRenderer() ElementRenderer
 
 	// //italics//
-	BeginItalics(io.Writer) error
-	EndItalics(io.Writer) error
+	ItalicsRenderer() ElementRenderer
 
 	// ::code:: — for example: ::u+2e3a:: ::icon:banana.png:: ::image:photo.jpeg::
-	BeginCode(io.Writer) error
-	EndCode(io.Writer) error
+	CodeRenderer() ElementRenderer
 
 	// [link]
-	BeginLink(io.Writer) error
-	EndLink(io.Writer) error
+	LinkRenderer() ElementRenderer
 
 	// ``monospaced``
-	BeginMonoSpaced(io.Writer) error
-	EndMonoSpaced(io.Writer) error
+	MonoSpacedRenderer() ElementRenderer
 
 	// {name}
-	BeginNameValue(io.Writer) error
-	EndNameValue(io.Writer) error
+	NameValueRenderer() ElementRenderer
 
 	// ‾‾overline‾‾
-	BeginOverLine(io.Writer) error
-	EndOverLine(io.Writer) error
+	OverLineRenderer() ElementRenderer
 
 	// ,,subscript,,
-	BeginSubScript(io.Writer) error
-	EndSubScript(io.Writer) error
+	SubScriptRenderer() ElementRenderer
 
 	// ''superscript''
-	BeginSuperScript(io.Writer) error
-	EndSuperScript(io.Writer) error
+	SuperScriptRenderer() ElementRenderer
 
 	// __underline__
-	BeginUnderLine(io.Writer) error
-	EndUnderLine(io.Writer) error
+	UnderLineRenderer() ElementRenderer
 }
