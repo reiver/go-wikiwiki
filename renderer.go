@@ -1,6 +1,10 @@
 package wikiwiki
 
 // Renderer is something that renders wiki to something else (such as HTML, ANSI, markdown, etc).
+//
+// For example, one renderer might transcode wiki text to HTML.
+// Another renderer might transcode wiki text to ANSI.
+// Etc.
 type Renderer interface {
 	RenderRune(r rune) error
 
@@ -15,6 +19,10 @@ type Renderer interface {
 	// //italics//
 	BeginItalics() error
 	EndItalics() error
+
+	// ::code:: — for example: ::u+2e3a::
+	BeginCode() error
+	EndCode() error
 
 	// [link]
 	BeginLink() error
@@ -41,6 +49,6 @@ type Renderer interface {
 	EndUnderLine() error
 
 	// {name}
-	BeginValue() error
-	EndValue() error
+	BeginNameValue() error
+	EndNameValue() error
 }
