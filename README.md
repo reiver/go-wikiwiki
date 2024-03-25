@@ -8,6 +8,25 @@ Online documentation, which includes examples, can be found at: http://godoc.org
 
 [![GoDoc](https://godoc.org/github.com/reiver/go-wikiwiki?status.svg)](https://godoc.org/github.com/reiver/go-wikiwiki)
 
+## Wiki Text Syntax
+
+This is the syntax wiki text markup:
+
+```
+''superscript'
+((no-op))
+**bold**apple **banana** cherry
+,,subscript,,
+//italics//
+::smart-code::
+[[internal-link]]
+__underline__
+``mononspaced``
+{{name}}
+||highlight||
+‾‾overline‾‾
+```
+
 ## Import
 
 To import package **wikiwiki** use `import` code like the follownig:
