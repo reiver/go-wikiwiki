@@ -9,7 +9,7 @@ import (
 var nameValueRenderer wikiwiki.ElementRenderer = internalNameValueRenderer{}
 
 func (internalRenderer) NameValueRenderer() wikiwiki.ElementRenderer {
-	return internalNameValueRenderer{}
+	return nameValueRenderer
 }
 
 type internalNameValueRenderer struct{}

@@ -9,7 +9,7 @@ import (
 var superScriptRenderer wikiwiki.ElementRenderer = internalSuperScriptRenderer{}
 
 func (internalRenderer) SuperScriptRenderer() wikiwiki.ElementRenderer {
-	return internalSuperScriptRenderer{}
+	return superScriptRenderer
 }
 
 type internalSuperScriptRenderer struct{}

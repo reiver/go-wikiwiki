@@ -9,7 +9,7 @@ import (
 var italicsRenderer wikiwiki.ElementRenderer = internalItalicsRenderer{}
 
 func (internalRenderer) ItalicsRenderer() wikiwiki.ElementRenderer {
-	return internalItalicsRenderer{}
+	return italicsRenderer
 }
 
 type internalItalicsRenderer struct{}

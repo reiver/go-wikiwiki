@@ -11,3 +11,7 @@ const (
 	errNilTextTranscoder = erorr.Error("wikiwiki: nil text-transcoder")
 	errNilWriter         = erorr.Error("wikiwiki: nil writer")
 )
+
+const (
+	ErrEmptyLine = erorr.Error("empty line")
+)

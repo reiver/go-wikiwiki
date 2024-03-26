@@ -9,7 +9,7 @@ import (
 var boldRenderer wikiwiki.ElementRenderer = internalBoldRenderer{}
 
 func (internalRenderer) BoldRenderer() wikiwiki.ElementRenderer {
-	return internalBoldRenderer{}
+	return boldRenderer
 }
 
 type internalBoldRenderer struct{}

@@ -9,7 +9,7 @@ import (
 var underLineRenderer wikiwiki.ElementRenderer = internalUnderLineRenderer{}
 
 func (internalRenderer) UnderLineRenderer() wikiwiki.ElementRenderer {
-	return internalUnderLineRenderer{}
+	return underLineRenderer
 }
 
 type internalUnderLineRenderer struct{}

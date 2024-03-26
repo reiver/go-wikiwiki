@@ -44,4 +44,12 @@ type Renderer interface {
 
 	// __underline__
 	UnderLineRenderer() ElementRenderer
+
+
+
+	AlertRenderer() BlockRenderer
+
+	HeadingRenderer() BlockRenderer
+
+	InfoRenderer() BlockRenderer
 }

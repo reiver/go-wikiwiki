@@ -9,7 +9,7 @@ import (
 var overLineRenderer wikiwiki.ElementRenderer = internalOverLineRenderer{}
 
 func (internalRenderer) OverLineRenderer() wikiwiki.ElementRenderer {
-	return internalOverLineRenderer{}
+	return overLineRenderer
 }
 
 type internalOverLineRenderer struct{}

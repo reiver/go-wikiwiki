@@ -9,7 +9,7 @@ import (
 var monoSpacedRenderer wikiwiki.ElementRenderer = internalMonoSpacedRenderer{}
 
 func (internalRenderer) MonoSpacedRenderer() wikiwiki.ElementRenderer {
-	return internalMonoSpacedRenderer{}
+	return monoSpacedRenderer
 }
 
 type internalMonoSpacedRenderer struct{}

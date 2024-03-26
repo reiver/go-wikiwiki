@@ -9,7 +9,7 @@ import (
 var linkRenderer wikiwiki.ElementRenderer = internalLinkRenderer{}
 
 func (internalRenderer) LinkRenderer() wikiwiki.ElementRenderer {
-	return internalLinkRenderer{}
+	return linkRenderer
 }
 
 type internalLinkRenderer struct{}

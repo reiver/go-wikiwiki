@@ -9,7 +9,7 @@ import (
 var highLightRenderer wikiwiki.ElementRenderer = internalHighLightRenderer{}
 
 func (internalRenderer) HighLightRenderer() wikiwiki.ElementRenderer {
-	return internalHighLightRenderer{}
+	return highLightRenderer
 }
 
 type internalHighLightRenderer struct{}
