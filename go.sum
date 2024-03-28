@@ -1,0 +1,14 @@
+github.com/reiver/go-ascii v0.0.0-20240302002050-442843e5ea02 h1:YviUVCHZw6gaxvLznXQTXp7LwaWzly80TXUsWxwPPi4=
+github.com/reiver/go-ascii v0.0.0-20240302002050-442843e5ea02/go.mod h1:f43/Y1zpLvqorZN0BelarPzO2GrotAQrBy3T08NUSTM=
+github.com/reiver/go-path v0.0.0-20240228195003-c9685181c3a3 h1:DPQhDR81e5ddqK0JuJ9JsFb7ermbo3t+ynj7OsCMcXM=
+github.com/reiver/go-path v0.0.0-20240228195003-c9685181c3a3/go.mod h1:4H3fxXTRSuvWviraF1tFTVXhRciV8KFGq5tzo1gb2Tk=
+sourcecode.social/reiver/go-eol v0.0.0-20240326064055-6080dd101592 h1:5lIRVxewoVEKA8AB/xLirgx16VVGAvYY15BWZzLQdh0=
+sourcecode.social/reiver/go-eol v0.0.0-20240326064055-6080dd101592/go.mod h1:2OmaB7yZ5/S7rix/3mhFkLZ1HwkgCBt6NqdB4fFGQjI=
+sourcecode.social/reiver/go-erorr v0.0.0-20230922202459-231149d185a1 h1:wpnz4JicQBLWrgGphYBls7DysIFCcnWgDz/vce/sY8E=
+sourcecode.social/reiver/go-erorr v0.0.0-20230922202459-231149d185a1/go.mod h1:NFtd7fzEf0r6A6R7JXYZfayRhPaJy0zt/18VWoLzrxA=
+sourcecode.social/reiver/go-opt v0.0.0-20240224175000-afc1a40c4b67 h1:LU315YjZxmPvedaRZeNtZ+9A2tZIoWv/EWjU1h27FvE=
+sourcecode.social/reiver/go-opt v0.0.0-20240224175000-afc1a40c4b67/go.mod h1:O6WKM2UcKkheRT/dA6A2b1tW0m+WenSbxdcXE+idxzI=
+sourcecode.social/reiver/go-strfs v0.0.0-20231023185051-13e37a7f9fc8 h1:X9k2Qiu2tH+R7isQW0x5J5pQQzdx0lsNkcxg3a1M+uc=
+sourcecode.social/reiver/go-strfs v0.0.0-20231023185051-13e37a7f9fc8/go.mod h1:19ksRdt4xIlgeWkupjhyppPxVKEV4PXoEjQU+RZfQ1I=
+sourcecode.social/reiver/go-utf8 v0.0.0-20231130152456-8769b5dac701 h1:uD+KyIXYMTAAkkY1DRy5J4RANP0JIU9B9yd2XGFrC90=
+sourcecode.social/reiver/go-utf8 v0.0.0-20231130152456-8769b5dac701/go.mod h1:xZZIkdX6xIkkzalD1YTiM1F3Os9xPaIY7z9s6EBDmCI=
