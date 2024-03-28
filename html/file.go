@@ -159,8 +159,31 @@ func (receiver internalFile) transcode() {
 		}
 	}()
 
+	{
+		_, err := io.WriteString(writer,
+			`<html>`+"\n"+
+			`<head>`+"\n"+
+			`<meta charset="utf-8" />`+"\n"+
+			`</head>`+"\n"+
+			`<body>`+"\n",
+		)
+		if nil != err {
+			panic(err)
+		}
+	}
+
 	err := Transcode(writer, file)
 	if nil != err {
 		panic(err)
+	}
+
+	{
+		_, err := io.WriteString(writer,
+			`</body>`+"\n"+
+			`</html>`+"\n",
+		)
+		if nil != err {
+			panic(err)
+		}
 	}
 }
