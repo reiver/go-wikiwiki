@@ -1,4 +1,4 @@
-package wikiwiki
+package wikiwikihtml
 
 import (
 	"errors"
@@ -13,7 +13,7 @@ import (
 	"github.com/reiver/go-wikiwiki/transcoder/text"
 )
 
-func TranscodeToHTML(writer io.Writer, reader io.Reader) (err error) {
+func Transcode(writer io.Writer, reader io.Reader) (err error) {
 	if nil == writer {
 		return errNilWriter
 	}

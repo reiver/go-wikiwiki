@@ -1,11 +1,11 @@
-package wikiwiki_test
+package wikiwikihtml_test
 
 import (
 	"fmt"
 	"io"
 	"strings"
 
-	"github.com/reiver/go-wikiwiki"
+	"github.com/reiver/go-wikiwiki/html"
 )
 
 func ExampleTranscode() {
@@ -24,7 +24,7 @@ func ExampleTranscode() {
 
 	var output strings.Builder
 
-	err := wikiwiki.TranscodeToHTML(&output, input)
+	err := wikiwikihtml.Transcode(&output, input)
 	if nil != err {
 		panic(err)
 	}

@@ -4,17 +4,6 @@ import (
 	"io"
 	"io/fs"
 	"time"
-
-	"sourcecode.social/reiver/go-erorr"
-
-	"github.com/reiver/go-wikiwiki"
-)
-
-const (
-	errNilFile       = erorr.Error("wikiwiki: nil file")
-	errNilPipeReader = erorr.Error("wikiwiki: nil pipe-reader")
-	errNilPipeWriter = erorr.Error("wikiwiki: nil pipe-writer")
-	errNilReceiver   = erorr.Error("wikiwiki: nil receiver")
 )
 
 // File takes a fs.File with wiki content, and returns a new fs.File with HTML content.
@@ -170,7 +159,7 @@ func (receiver internalFile) transcode() {
 		}
 	}()
 
-	err := wikiwiki.TranscodeToHTML(writer, file)
+	err := Transcode(writer, file)
 	if nil != err {
 		panic(err)
 	}
