@@ -123,9 +123,9 @@ func (receiver internalFile) Read(p []byte) (int, error) {
 	return reader.Read(p)
 }
 
-// Size( returns -1.
+// Size returns -1.
 //
-// We don't know the size ahead of time, so we are returning a non-sensical size.
+// We don't know the size ahead of time, so we are intentionally returning a non-sensical size.
 func (receiver internalFile) Size() int64 {
 	return -1
 }
