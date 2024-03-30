@@ -21,7 +21,7 @@ func TestFile(t *testing.T) {
 		{
 			Content:  "",
 			Expected:
-				"<html>\n<head>\n<meta charset=\"utf-8\" />\n</head>\n<body>\n"+
+				"<html>\n<head>\n<meta charset=\"utf-8\" />\n<style type=\"text/css\">\na.wiki-link::before{\ncontent:attr(href);\n}\n</style>\n</head>\n<body>\n"+
 				""+
 				"</body>\n</html>\n",
 		},
@@ -31,21 +31,21 @@ func TestFile(t *testing.T) {
 		{
 			Content:  "&",
 			Expected:
-				"<html>\n<head>\n<meta charset=\"utf-8\" />\n</head>\n<body>\n"+
+				"<html>\n<head>\n<meta charset=\"utf-8\" />\n<style type=\"text/css\">\na.wiki-link::before{\ncontent:attr(href);\n}\n</style>\n</head>\n<body>\n"+
 				"&amp;"+
 				"</body>\n</html>\n",
 		},
 		{
 			Content:  "<",
 			Expected:
-				"<html>\n<head>\n<meta charset=\"utf-8\" />\n</head>\n<body>\n"+
+				"<html>\n<head>\n<meta charset=\"utf-8\" />\n<style type=\"text/css\">\na.wiki-link::before{\ncontent:attr(href);\n}\n</style>\n</head>\n<body>\n"+
 				"&lt;"+
 				"</body>\n</html>\n",
 		},
 		{
 			Content:  ">",
 			Expected:
-				"<html>\n<head>\n<meta charset=\"utf-8\" />\n</head>\n<body>\n"+
+				"<html>\n<head>\n<meta charset=\"utf-8\" />\n<style type=\"text/css\">\na.wiki-link::before{\ncontent:attr(href);\n}\n</style>\n</head>\n<body>\n"+
 				"&gt;"+
 				"</body>\n</html>\n",
 		},
@@ -55,7 +55,7 @@ func TestFile(t *testing.T) {
 		{
 			Content:  "2 < 5 & 4 > 2 & 13 > 7",
 			Expected:
-				"<html>\n<head>\n<meta charset=\"utf-8\" />\n</head>\n<body>\n"+
+				"<html>\n<head>\n<meta charset=\"utf-8\" />\n<style type=\"text/css\">\na.wiki-link::before{\ncontent:attr(href);\n}\n</style>\n</head>\n<body>\n"+
 				"2 &lt; 5 &amp; 4 &gt; 2 &amp; 13 &gt; 7"+
 				"</body>\n</html>\n",
 		},
@@ -68,7 +68,7 @@ func TestFile(t *testing.T) {
 				"**How** are //you//?"+"\n"+
 				"How ||are you|| today?"+"\n",
 			Expected:
-				"<html>\n<head>\n<meta charset=\"utf-8\" />\n</head>\n<body>\n"+
+				"<html>\n<head>\n<meta charset=\"utf-8\" />\n<style type=\"text/css\">\na.wiki-link::before{\ncontent:attr(href);\n}\n</style>\n</head>\n<body>\n"+
 				"Hello <b>world</b>!"+"\n"+
 				"<b>How</b> are <i>you</i>?"+"\n"+
 				"How <mark>are you</mark> today?"+"\n"+
