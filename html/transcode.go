@@ -46,7 +46,7 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 			break
 		}
 		if nil != err {
-
+			return erorr.Errorf("wikiwiki: problem readung rune: %w", err)
 		}
 
 		err = texttranscoder.InterpretRune(r)
