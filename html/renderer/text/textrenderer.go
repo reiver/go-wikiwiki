@@ -1,4 +1,4 @@
-package wikiwikihtmltext
+package wikiwikihtmltextrenderer
 
 import (
 	"io"

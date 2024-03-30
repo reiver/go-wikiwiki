@@ -7,8 +7,8 @@ import (
 	"sourcecode.social/reiver/go-erorr"
 	"sourcecode.social/reiver/go-utf8"
 
+	"github.com/reiver/go-wikiwiki/html/renderer/text"
 	"github.com/reiver/go-wikiwiki/renderer"
-	"github.com/reiver/go-wikiwiki/renderer/html/text"
 	"github.com/reiver/go-wikiwiki/transcoder"
 	"github.com/reiver/go-wikiwiki/transcoder/text"
 )
@@ -21,7 +21,7 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 		return errNilReader
 	}
 
-	var textrenderer wikiwikirenderer.TextRenderer = wikiwikihtmltext.TextRenderer
+	var textrenderer wikiwikirenderer.TextRenderer = wikiwikihtmltextrenderer.TextRenderer
 	if nil == textrenderer {
 		return errInternalError
 	}
