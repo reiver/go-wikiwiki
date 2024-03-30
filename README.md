@@ -10,7 +10,7 @@ Online documentation, which includes examples, can be found at: http://godoc.org
 
 ## Wiki Text Syntax
 
-This is the syntax wiki text markup:
+This is the syntax for wiki text markup:
 
 ```
 ''superscript'
@@ -25,6 +25,23 @@ __underline__
 {{name}}
 ||highlight||
 ‾‾overline‾‾
+```
+
+This is the syntax  for wiki block markup:
+
+```
+― block quotation line 1
+― block quotation line 2
+― block quotation line 3
+⸺ source of quotation
+```
+
+```
+• list item 1
+• list item 2
+•• list item 2.1
+•• list item 2.2
+• list item 3
 ```
 
 ## Import
