@@ -164,6 +164,11 @@ func (receiver internalFile) transcode() {
 			`<html>`+"\n"+
 			`<head>`+"\n"+
 			`<meta charset="utf-8" />`+"\n"+
+			`<style type="text/css">`+"\n"+
+			`a.wiki-link::before{`+"\n"+
+			`content:attr(href);`+"\n"+
+			`}`+"\n"+
+			`</style>`+"\n"+
 			`</head>`+"\n"+
 			`<body>`+"\n",
 		)
