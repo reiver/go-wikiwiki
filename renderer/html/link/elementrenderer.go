@@ -9,8 +9,8 @@ import (
 	"github.com/reiver/go-wikiwiki/renderer/html/rune"
 )
 
-const elementbegin string = `<span class="wiki-link">`
-const elementend   string = "</span>"
+const elementbegin string = `<a class="wiki-link" href="`
+const elementend   string = `"></a>`
 const elementname  string = "link"
 
 var ElementRenderer wikiwikirenderer.ElementRenderer = internalElementRenderer{}
@@ -22,7 +22,7 @@ func (internalElementRenderer) RenderRune(writer io.Writer, r rune) error {
 		return errNilWriter
 	}
 
-	return wikiwikihtmlrune.RenderRune(writer, r)
+	return wikiwikihtmlrune.RenderRuneInAttribute(writer, r)
 }
 
 func (internalElementRenderer) BeginRenderingElement(writer io.Writer) error {
