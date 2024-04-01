@@ -4,6 +4,7 @@ import (
 	"errors"
 	"io"
 
+	"github.com/reiver/go-iopsep"
 	"sourcecode.social/reiver/go-erorr"
 	"sourcecode.social/reiver/go-utf8"
 
@@ -37,21 +38,58 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 		}
 	}()
 
+	var closecode string
+
 	for {
-		var r rune
-
-		r, _, err = utf8.ReadRune(reader)
-		if errors.Is(err, io.EOF) {
-	/////////////// BREAK
-			break
-		}
-		if nil != err {
-			return erorr.Errorf("wikiwiki: problem readung rune: %w", err)
+		var block io.ReadCloser = iopsep.NewParagraphReadCloser(reader)
+		if nil == block {
+			return errNilBlockReader
 		}
 
-		err = texttranscoder.InterpretRune(r)
-		if nil != err {
-			return erorr.Errorf("wikiwiki: text-transcoder had trouble interpretting rune %q (%U): %w", r, r, err)
+		var firstrune bool = true
+
+		var interpretted int
+
+
+		for {
+			r, size, err := utf8.ReadRune(block)
+			if 0 < size {
+				if firstrune {
+					firstrune = false
+
+					var opencode string = "<p>\n"
+					_, err := io.WriteString(writer, opencode)
+					if nil != err {
+						return erorr.Errorf("wikiwiki: problem writing %q: %w", opencode, err)
+					}
+					closecode = "</p>\n"
+				}
+			}
+			if errors.Is(err, io.EOF) {
+		/////////////// BREAK
+				break
+			}
+			if nil != err {
+				return erorr.Errorf("wikiwiki: problem readung rune: %w", err)
+			}
+
+			err = texttranscoder.InterpretRune(r)
+			if nil != err {
+				return erorr.Errorf("wikiwiki: text-transcoder had trouble interpretting rune %q (%U): %w", r, r, err)
+			}
+			interpretted++
+		}
+
+		if interpretted <= 0 {
+			return nil
+		}
+
+		{
+			_, err := io.WriteString(writer, closecode)
+			if nil != err {
+				return erorr.Errorf("wikiwiki: problem writing %q: %w", closecode, err)
+			}
+			closecode = ""
 		}
 	}
 

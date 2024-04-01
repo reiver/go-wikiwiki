@@ -18,7 +18,10 @@ func ExampleTranscode() {
 		"This is the ``fifth`` sentence."+"\n"+
 		"Apple ||BANANA|| cherry."+"\n"+
 		"This is the ||7''th''|| sentence."+"\n"+
-		"‾‾x‾‾ = (x,,1,,, x,,2,,, x,,3,,)"+"\n"
+		"‾‾x‾‾ = (x,,1,,, x,,2,,, x,,3,,)"+"\n"+
+		""+"\n"+
+		"once twice thrice fource."+"\n"+
+		"pick it up."+"\n"
 
 	var input io.Reader = strings.NewReader(wikitext)
 
@@ -33,6 +36,7 @@ func ExampleTranscode() {
 
 	// Output:
 	//
+	// <p>
 	// Hello world!
 	// This is the <b>second</b> sentence.
 	// Did you know that: 0 = 1 + e<sup>iπ</sup>.
@@ -41,4 +45,11 @@ func ExampleTranscode() {
 	// Apple <mark>BANANA</mark> cherry.
 	// This is the <mark>7<sup>th</sup></mark> sentence.
 	// <span style="text-decoration:overline">x</span> = (x<sub>1</sub>, x<sub>2</sub>, x<sub>3</sub>)
+
+	// </p>
+	// <p>
+	// once twice thrice fource.
+	// pick it up.
+	//
+	// </p>
 }
