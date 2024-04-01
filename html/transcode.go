@@ -59,6 +59,9 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 					var opencode string
 
 					switch r {
+					case '§': // U+00A7 Section Sign
+						opencode  = "<h2>"
+						closecode = "</h2>\n"
 					case '―': // U+2015 Horizontal Bar; i.e., quotation dash.
 						opencode  = "<blockquote>\n"
 						closecode = "</blockquote>\n"

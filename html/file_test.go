@@ -151,7 +151,12 @@ func TestFile(t *testing.T) {
 				"**How** are //you//?"+"\n"+
 				"How ||are you|| today?"+"\n"+
 				""+"\n"+
-				"•apple •banana •cherry!"+"\n",
+				"•apple •banana •cherry!"+"\n"+
+				""+"\n"+
+				"§ The"+"\n"+
+				"End"+"\n"+
+				""+"\n"+
+				"Wow"+"\n",
 			Expected:
 				"<html>\n<head>\n<meta charset=\"utf-8\" />\n<style type=\"text/css\">\na.wiki-link::before{\ncontent:attr(href);\n}\n</style>\n</head>\n<body>\n"+
 				"<p>\n"+
@@ -164,7 +169,16 @@ func TestFile(t *testing.T) {
 				"<li>apple "+
 				"<li>banana "+
 				"<li>cherry!"+"\n"+
+				""+"\n"+
 				"</ul>\n"+
+				"<h2>"+
+				"§ The"+"\n"+
+				"End"+"\n"+
+				""+"\n"+
+				"</h2>\n"+
+				"<p>\n"+
+				"Wow"+"\n"+
+				"</p>\n"+
 				"</body>\n</html>\n",
 		},
 	}
