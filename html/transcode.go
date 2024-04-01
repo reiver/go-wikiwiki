@@ -62,6 +62,11 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 					case '―': // U+2015 Horizontal Bar; i.e., quotation dash.
 						opencode  = "<blockquote>\n"
 						closecode = "</blockquote>\n"
+					case '•', // U+2022 Bullet
+					     '‣', // U+2023 Triangular Bullet
+					     '⁃': // U+2043 Hyphen Bullet
+						opencode  = "<ul>\n"
+						closecode = "</ul>\n"
 					default:
 						opencode  = "<p>\n"
 						closecode = "</p>\n"
@@ -84,20 +89,29 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 				return erorr.Errorf("wikiwiki: problem readung rune: %w", err)
 			}
 
-			err = texttranscoder.InterpretRune(r)
-			if nil != err {
-				return erorr.Errorf("wikiwiki: text-transcoder had trouble interpretting rune %q (%U): %w", r, r, err)
-			}
-			interpretted++
-
-			switch r {
-			case unicode.LS:
+			switch {
+			case unicode.LS == r:
 				const code string = "<br />\n"
 				_, err := io.WriteString(writer, code)
 				if nil != err {
 					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
 				}
+			case "</ul>\n" == closecode && (
+			         r == '•' || // U+2022 Bullet
+			         r == '‣' || // U+2023 Triangular Bullet
+			         r == '⁃' ): // U+2043 Hyphen Bullet
+				const code string = "<li>"
+				_, err := io.WriteString(writer, code)
+				if nil != err {
+					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
+				}
+			default:
+				err = texttranscoder.InterpretRune(r)
+				if nil != err {
+					return erorr.Errorf("wikiwiki: text-transcoder had trouble interpretting rune %q (%U): %w", r, r, err)
+				}
 			}
+			interpretted++
 		}
 
 		if interpretted <= 0 {

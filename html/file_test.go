@@ -135,14 +135,36 @@ func TestFile(t *testing.T) {
 				""+"\n"+
 				"</p>\n"+
 				"<blockquote>\n"+
-				"― Do your ears hang low?"+"\u2028"+
-				"<br />\n"+
-				"― Do they wobble to and fro?"+"\u2028"+
-				"<br />\n"+
-				"― Can you tie 'em in a knot?"+"\u2028"+
-				"<br />\n"+
+				"― Do your ears hang low?"+"<br />\n"+
+				"― Do they wobble to and fro?"+"<br />\n"+
+				"― Can you tie 'em in a knot?"+"<br />\n"+
 				"― Can you tie 'em in a bow?"+"\n"+
 				"</blockquote>\n"+
+				"</body>\n</html>\n",
+		},
+
+
+
+		{
+			Content:
+				"Hello **world**!"+"\n"+
+				"**How** are //you//?"+"\n"+
+				"How ||are you|| today?"+"\n"+
+				""+"\n"+
+				"•apple •banana •cherry!"+"\n",
+			Expected:
+				"<html>\n<head>\n<meta charset=\"utf-8\" />\n<style type=\"text/css\">\na.wiki-link::before{\ncontent:attr(href);\n}\n</style>\n</head>\n<body>\n"+
+				"<p>\n"+
+				"Hello <b>world</b>!"+"\n"+
+				"<b>How</b> are <i>you</i>?"+"\n"+
+				"How <mark>are you</mark> today?"+"\n"+
+				""+"\n"+
+				"</p>\n"+
+				"<ul>\n"+
+				"<li>apple "+
+				"<li>banana "+
+				"<li>cherry!"+"\n"+
+				"</ul>\n"+
 				"</body>\n</html>\n",
 		},
 	}
