@@ -173,13 +173,15 @@ func (receiver internalFile) transcode() {
 			`<body>`+"\n",
 		)
 		if nil != err {
-			panic(err)
+			writer.CloseWithError(err)
+			return
 		}
 	}
 
 	err := Transcode(writer, file)
 	if nil != err {
-		panic(err)
+		writer.CloseWithError(err)
+		return
 	}
 
 	{
@@ -188,7 +190,8 @@ func (receiver internalFile) transcode() {
 			`</html>`+"\n",
 		)
 		if nil != err {
-			panic(err)
+			writer.CloseWithError(err)
+			return
 		}
 	}
 }

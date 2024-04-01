@@ -19,7 +19,8 @@ func TestFile(t *testing.T) {
 		Expected string
 	}{
 		{
-			Content:  "",
+			Content:
+				"wiki/1"+"\n",
 			Expected:
 				"<html>\n<head>\n<meta charset=\"utf-8\" />\n<style type=\"text/css\">\na.wiki-link::before{\ncontent:attr(href);\n}\n</style>\n</head>\n<body>\n"+
 				""+
@@ -29,7 +30,9 @@ func TestFile(t *testing.T) {
 
 
 		{
-			Content:  "&",
+			Content:
+				"wiki/1"+"\n"+
+				"&",
 			Expected:
 				"<html>\n<head>\n<meta charset=\"utf-8\" />\n<style type=\"text/css\">\na.wiki-link::before{\ncontent:attr(href);\n}\n</style>\n</head>\n<body>\n"+
 				"<p>\n"+
@@ -38,7 +41,9 @@ func TestFile(t *testing.T) {
 				"</body>\n</html>\n",
 		},
 		{
-			Content:  "<",
+			Content:
+				"wiki/1"+"\n"+
+				"<",
 			Expected:
 				"<html>\n<head>\n<meta charset=\"utf-8\" />\n<style type=\"text/css\">\na.wiki-link::before{\ncontent:attr(href);\n}\n</style>\n</head>\n<body>\n"+
 				"<p>\n"+
@@ -47,7 +52,9 @@ func TestFile(t *testing.T) {
 				"</body>\n</html>\n",
 		},
 		{
-			Content:  ">",
+			Content:
+				"wiki/1"+"\n"+
+				">",
 			Expected:
 				"<html>\n<head>\n<meta charset=\"utf-8\" />\n<style type=\"text/css\">\na.wiki-link::before{\ncontent:attr(href);\n}\n</style>\n</head>\n<body>\n"+
 				"<p>\n"+
@@ -59,7 +66,9 @@ func TestFile(t *testing.T) {
 
 
 		{
-			Content:  "2 < 5 & 4 > 2 & 13 > 7",
+			Content:
+				"wiki/1"+"\n"+
+				"2 < 5 & 4 > 2 & 13 > 7",
 			Expected:
 				"<html>\n<head>\n<meta charset=\"utf-8\" />\n<style type=\"text/css\">\na.wiki-link::before{\ncontent:attr(href);\n}\n</style>\n</head>\n<body>\n"+
 				"<p>\n"+
@@ -72,6 +81,7 @@ func TestFile(t *testing.T) {
 
 		{
 			Content:
+				"wiki/1"+"\n"+
 				"Hello **world**!"+"\n"+
 				"**How** are //you//?"+"\n"+
 				"How ||are you|| today?"+"\n",
@@ -89,6 +99,7 @@ func TestFile(t *testing.T) {
 
 		{
 			Content:
+				"wiki/1"+"\n"+
 				"Hello **world**!"+"\n"+
 				"**How** are //you//?"+"\n"+
 				"How ||are you|| today?"+"\n"+
@@ -112,6 +123,7 @@ func TestFile(t *testing.T) {
 
 		{
 			Content:
+				"wiki/1"+"\n"+
 				"Hello **world**!"+"\n"+
 				"**How** are //you//?"+"\n"+
 				"How ||are you|| today?"+"\n"+
@@ -147,6 +159,7 @@ func TestFile(t *testing.T) {
 
 		{
 			Content:
+				"wiki/1"+"\n"+
 				"Hello **world**!"+"\n"+
 				"**How** are //you//?"+"\n"+
 				"How ||are you|| today?"+"\n"+

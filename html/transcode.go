@@ -10,6 +10,7 @@ import (
 	"sourcecode.social/reiver/go-utf8"
 
 	"github.com/reiver/go-wikiwiki/html/renderer/text"
+	"github.com/reiver/go-wikiwiki/internal/magic"
 	"github.com/reiver/go-wikiwiki/renderer"
 	"github.com/reiver/go-wikiwiki/transcoder"
 	"github.com/reiver/go-wikiwiki/transcoder/text"
@@ -21,6 +22,13 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 	}
 	if nil == reader {
 		return errNilReader
+	}
+
+	{
+		_, err := wikiwikimagic.ReadMagic(reader)
+		if nil != err {
+			return err
+		}
 	}
 
 	var textrenderer wikiwikirenderer.TextRenderer = wikiwikihtmltextrenderer.TextRenderer
