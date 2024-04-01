@@ -55,14 +55,24 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 			r, size, err := utf8.ReadRune(block)
 			if 0 < size {
 				if firstrune {
+					var opencode string
+
+					switch r {
+					case '―': // U+2015 Horizontal Bar; i.e., quotation dash.
+						opencode  = "<blockquote>\n"
+						closecode = "</blockquote>\n"
+					default:
+						opencode  = "<p>\n"
+						closecode = "</p>\n"
+					}
+
+
 					firstrune = false
 
-					var opencode string = "<p>\n"
 					_, err := io.WriteString(writer, opencode)
 					if nil != err {
 						return erorr.Errorf("wikiwiki: problem writing %q: %w", opencode, err)
 					}
-					closecode = "</p>\n"
 				}
 			}
 			if errors.Is(err, io.EOF) {
