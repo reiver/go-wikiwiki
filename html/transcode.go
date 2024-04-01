@@ -5,6 +5,7 @@ import (
 	"io"
 
 	"github.com/reiver/go-iopsep"
+	"github.com/reiver/go-unicode"
 	"sourcecode.social/reiver/go-erorr"
 	"sourcecode.social/reiver/go-utf8"
 
@@ -88,6 +89,15 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 				return erorr.Errorf("wikiwiki: text-transcoder had trouble interpretting rune %q (%U): %w", r, r, err)
 			}
 			interpretted++
+
+			switch r {
+			case unicode.LS:
+				const code string = "<br />\n"
+				_, err := io.WriteString(writer, code)
+				if nil != err {
+					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
+				}
+			}
 		}
 
 		if interpretted <= 0 {

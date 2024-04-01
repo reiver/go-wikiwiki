@@ -1,7 +1,15 @@
 github.com/reiver/go-ascii v0.0.0-20240302002050-442843e5ea02 h1:YviUVCHZw6gaxvLznXQTXp7LwaWzly80TXUsWxwPPi4=
 github.com/reiver/go-ascii v0.0.0-20240302002050-442843e5ea02/go.mod h1:f43/Y1zpLvqorZN0BelarPzO2GrotAQrBy3T08NUSTM=
+github.com/reiver/go-iopsep v0.0.0-20240330215624-ae14ccaa0db4 h1:mQllL3oKVDJa8lyAHxXQl+fSkt3G1kAeJKXjttUuV5E=
+github.com/reiver/go-iopsep v0.0.0-20240330215624-ae14ccaa0db4/go.mod h1:t1Oicw6N573/GeBdU455ICzMwSI7ETWKErX7zg+B+LM=
+github.com/reiver/go-iopsep v0.0.0-20240331172136-611b85f146a7 h1:paTAr6b/5YDwSwcseV2RTEO/t7OFxx4AWvWV2vnXMdQ=
+github.com/reiver/go-iopsep v0.0.0-20240331172136-611b85f146a7/go.mod h1:HjWawxxLUfBbwPHsOAULVSp5XfDXLexIYeA8S2I6qos=
+github.com/reiver/go-iopsep v0.0.0-20240401045959-7ed6c8452d33 h1:6w2X3cXjUfBSL3tqY4XE+9UXDVoez/HS0zeANnCQ3LM=
+github.com/reiver/go-iopsep v0.0.0-20240401045959-7ed6c8452d33/go.mod h1:HjWawxxLUfBbwPHsOAULVSp5XfDXLexIYeA8S2I6qos=
 github.com/reiver/go-path v0.0.0-20240228195003-c9685181c3a3 h1:DPQhDR81e5ddqK0JuJ9JsFb7ermbo3t+ynj7OsCMcXM=
 github.com/reiver/go-path v0.0.0-20240228195003-c9685181c3a3/go.mod h1:4H3fxXTRSuvWviraF1tFTVXhRciV8KFGq5tzo1gb2Tk=
+github.com/reiver/go-unicode v0.0.0-20240330202432-e385f372c7f8 h1:nVeubG6cNuKtxg83omhjqwsuGmWoEevARXgCEy/b7mk=
+github.com/reiver/go-unicode v0.0.0-20240330202432-e385f372c7f8/go.mod h1:oQfIIPgO9kwaidcFsKuyAXEODc15w+F1XNl0neJbkVw=
 sourcecode.social/reiver/go-eol v0.0.0-20240326064055-6080dd101592 h1:5lIRVxewoVEKA8AB/xLirgx16VVGAvYY15BWZzLQdh0=
 sourcecode.social/reiver/go-eol v0.0.0-20240326064055-6080dd101592/go.mod h1:2OmaB7yZ5/S7rix/3mhFkLZ1HwkgCBt6NqdB4fFGQjI=
 sourcecode.social/reiver/go-erorr v0.0.0-20230922202459-231149d185a1 h1:wpnz4JicQBLWrgGphYBls7DysIFCcnWgDz/vce/sY8E=
@@ -12,3 +20,5 @@ sourcecode.social/reiver/go-strfs v0.0.0-20231023185051-13e37a7f9fc8 h1:X9k2Qiu2
 sourcecode.social/reiver/go-strfs v0.0.0-20231023185051-13e37a7f9fc8/go.mod h1:19ksRdt4xIlgeWkupjhyppPxVKEV4PXoEjQU+RZfQ1I=
 sourcecode.social/reiver/go-utf8 v0.0.0-20231130152456-8769b5dac701 h1:uD+KyIXYMTAAkkY1DRy5J4RANP0JIU9B9yd2XGFrC90=
 sourcecode.social/reiver/go-utf8 v0.0.0-20231130152456-8769b5dac701/go.mod h1:xZZIkdX6xIkkzalD1YTiM1F3Os9xPaIY7z9s6EBDmCI=
+sourcecode.social/reiver/go-utf8 v0.0.0-20240331163454-e474e88f6f3c h1:o5uFBZOZlxYyuMp29iedkciwMtSJW9SpFS9hkYPSQEg=
+sourcecode.social/reiver/go-utf8 v0.0.0-20240331163454-e474e88f6f3c/go.mod h1:xZZIkdX6xIkkzalD1YTiM1F3Os9xPaIY7z9s6EBDmCI=

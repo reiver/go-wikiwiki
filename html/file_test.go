@@ -118,9 +118,9 @@ func TestFile(t *testing.T) {
 				""+"\n"+
 				"apple banana cherry!"+"\n"+
 				""+"\n"+
-				"― Do your ears hang low?"+"\n"+
-				"― Do they wobble to and fro?"+"\n"+
-				"― Can you tie 'em in a knot?"+"\n"+
+				"― Do your ears hang low?"+"\u2028"+
+				"― Do they wobble to and fro?"+"\u2028"+
+				"― Can you tie 'em in a knot?"+"\u2028"+
 				"― Can you tie 'em in a bow?"+"\n",
 			Expected:
 				"<html>\n<head>\n<meta charset=\"utf-8\" />\n<style type=\"text/css\">\na.wiki-link::before{\ncontent:attr(href);\n}\n</style>\n</head>\n<body>\n"+
@@ -135,9 +135,12 @@ func TestFile(t *testing.T) {
 				""+"\n"+
 				"</p>\n"+
 				"<blockquote>\n"+
-				"― Do your ears hang low?"+"\n"+
-				"― Do they wobble to and fro?"+"\n"+
-				"― Can you tie 'em in a knot?"+"\n"+
+				"― Do your ears hang low?"+"\u2028"+
+				"<br />\n"+
+				"― Do they wobble to and fro?"+"\u2028"+
+				"<br />\n"+
+				"― Can you tie 'em in a knot?"+"\u2028"+
+				"<br />\n"+
 				"― Can you tie 'em in a bow?"+"\n"+
 				"</blockquote>\n"+
 				"</body>\n</html>\n",
