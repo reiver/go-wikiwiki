@@ -241,7 +241,8 @@ sup.citation a:before {
 
 			`</style>`+"\n"+
 			`</head>`+"\n"+
-			`<body>`+"\n",
+			`<body>`+"\n"+
+			`<main>`+"\n",
 		)
 		if nil != err {
 			writer.CloseWithError(err)
@@ -257,6 +258,7 @@ sup.citation a:before {
 
 	{
 		_, err := io.WriteString(writer,
+			`</main>`+"\n"+
 			`</body>`+"\n"+
 			`</html>`+"\n",
 		)
