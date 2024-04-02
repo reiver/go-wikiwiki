@@ -67,6 +67,9 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 					var opencode string
 
 					switch r {
+					case '.': // U+00A7 Section Sign
+						opencode  = `<pre style="line-height:0.125em;">`+"\n"
+						closecode = "</pre>\n"
 					case '§': // U+00A7 Section Sign
 						opencode  = "<h2>"
 						closecode = "</h2>\n"
@@ -103,6 +106,34 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 			switch {
 			case unicode.LS == r:
 				const code string = "<br />\n"
+				_, err := io.WriteString(writer, code)
+				if nil != err {
+					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
+				}
+			case "</pre>\n" == closecode && r == '■': // U+25A0 Black Square
+				const code string =
+				`<div style="`+
+					`display:inline-block;`+
+					`margin:0;`+
+					`padding:0;`+
+					`width:1em;`+
+					`height:1em;`+
+					`background-color:#4f1802;`+
+				`"></div>`
+				_, err := io.WriteString(writer, code)
+				if nil != err {
+					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
+				}
+			case "</pre>\n" == closecode && r == '□': // U+25A1 White Square
+				const code string =
+				`<div style="`+
+					`display:inline-block;`+
+					`margin:0;`+
+					`padding:0;`+
+					`width:1em;`+
+					`height:1em;`+
+					`background-color:#FF7F00;`+
+				`"></div>`
 				_, err := io.WriteString(writer, code)
 				if nil != err {
 					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
