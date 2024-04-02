@@ -234,10 +234,11 @@ sup.citation a:before {
 	content: "[" counter(citation-number-counter) "]";
 }
 `+
-
-			`a.wiki-link::before{`+"\n"+
-			`content:attr(href);`+"\n"+
-			`}`+"\n"+
+`
+a.wiki-link::before{
+content:attr(href);
+}
+`+
 
 			`</style>`+"\n"+
 			`</head>`+"\n"+
