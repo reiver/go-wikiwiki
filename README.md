@@ -44,6 +44,13 @@ This is the syntax  for wiki block markup:
 • list item 3
 ```
 
+```
+.
+pre line 1
+pre line 2
+pre line 3
+```
+
 ## Import
 
 To import package **wikiwiki** use `import` code like the follownig:
