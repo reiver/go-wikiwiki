@@ -166,6 +166,34 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 				if nil != err {
 					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
 				}
+			case "</pre>\n" == closecode && r == '⬝': // U+2B1D Black Very Small Square
+				const code string =
+				`<div style="`+
+					`display:inline-block;`+
+					`margin:0;`+
+					`padding:0;`+
+					`width:0.25em;`+
+					`height:0.25em;`+
+					`background-color:#4f1802;`+
+				`"></div>`
+				_, err := io.WriteString(writer, code)
+				if nil != err {
+					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
+				}
+			case "</pre>\n" == closecode && r == '⬞': // U+2B1D White Very Small Square
+				const code string =
+				`<div style="`+
+					`display:inline-block;`+
+					`margin:0;`+
+					`padding:0;`+
+					`width:0.25em;`+
+					`height:0.25em;`+
+					`background-color:#FF7F00;`+
+				`"></div>`
+				_, err := io.WriteString(writer, code)
+				if nil != err {
+					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
+				}
 			case "</ul>\n" == closecode && (
 			         r == '•' || // U+2022 Bullet
 			         r == '‣' || // U+2023 Triangular Bullet
