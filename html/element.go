@@ -60,6 +60,10 @@ func (receiver internalElement) Buffer() string {
 	switch string(receiver) {
 	case ".": // U+00A7 Section Sign
 		// nothing here
+	case "•", // U+2022 Bullet
+	     "‣", // U+2023 Triangular Bullet
+	     "⁃": // U+2043 Hyphen Bullet
+		// nothing here
 	case "§": // U+00A7 Section Sign
 		// nothing here
 	case "§§":
