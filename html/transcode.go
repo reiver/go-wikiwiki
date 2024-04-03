@@ -47,54 +47,74 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 		}
 	}()
 
-	var closecode string
-
 	for {
 		var block io.ReadCloser = iopsep.NewParagraphReadCloser(reader)
 		if nil == block {
 			return errNilBlockReader
 		}
 
-		var firstrune bool = true
+		var r rune
 
-		var interpretted int
+		// ignore any leading empty lines.
+		loop: for {
+			var size int
 
+			r, size, err = utf8.ReadRune(block)
+			if 0 < size {
+				switch r {
+				case unicode.LF, unicode.CR, unicode.NEL, unicode.PS:
+					// nothing here.
+				default:
+					break loop
+				}
+			}
+			if io.EOF == err {
+				return nil
+			}
+		}
+
+		var  element internalElement = internalElement(string(r))
+
+		{
+			var code string = element.Begin()
+
+			_, err := io.WriteString(writer, code)
+			if nil != err {
+				return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
+			}
+		}
+
+		{
+			var buffer string = element.Buffer()
+			if 0 < len(buffer) {
+				_, err := io.WriteString(writer, buffer)
+				if nil != err {
+					return erorr.Errorf("wikiwiki: problem writing %q: %w", buffer, err)
+				}
+			}
+		}
 
 		for {
+
 			r, size, err := utf8.ReadRune(block)
 			if 0 < size {
-				if firstrune {
-					var opencode string
 
-					switch r {
-					case '.': // U+00A7 Section Sign
-						opencode  = `<pre style="line-height:0.125em;">`+"\n"
-						closecode = "</pre>\n"
-					case '§': // U+00A7 Section Sign
-						opencode  = "<h2>"
-						closecode = "</h2>\n"
-					case '―': // U+2015 Horizontal Bar; i.e., quotation dash.
-						opencode  = "<blockquote>\n"
-						closecode = "</blockquote>\n"
-					case '•', // U+2022 Bullet
-					     '‣', // U+2023 Triangular Bullet
-					     '⁃': // U+2043 Hyphen Bullet
-						opencode  = "<ul>\n"
-						closecode = "</ul>\n"
-					default:
-						opencode  = "<p>\n"
-						closecode = "</p>\n"
-					}
+				var particle internalParticle = internalParticle(r)
 
-
-					firstrune = false
-
-					_, err := io.WriteString(writer, opencode)
+				render, rendered := particle.Render()
+				if rendered {
+					_, err := io.WriteString(writer, render)
 					if nil != err {
-						return erorr.Errorf("wikiwiki: problem writing %q: %w", opencode, err)
+						return erorr.Errorf("wikiwiki: problem writing %q: %w", render, err)
+					}
+				} else {
+					err = texttranscoder.InterpretRune(r)
+					if nil != err {
+						return erorr.Errorf("wikiwiki: text-transcoder had trouble interpretting rune %q (%U): %w", r, r, err)
 					}
 				}
 			}
+
 			if errors.Is(err, io.EOF) {
 		/////////////// BREAK
 				break
@@ -102,126 +122,16 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 			if nil != err {
 				return erorr.Errorf("wikiwiki: problem readung rune: %w", err)
 			}
-
-			switch {
-			case unicode.LS == r:
-				const code string = "<br />\n"
-				_, err := io.WriteString(writer, code)
-				if nil != err {
-					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
-				}
-			case "</pre>\n" == closecode && r == '■': // U+25A0 Black Square
-				const code string =
-				`<div style="`+
-					`display:inline-block;`+
-					`margin:0;`+
-					`padding:0;`+
-					`width:1em;`+
-					`height:1em;`+
-					`background-color:#4f1802;`+
-				`"></div>`
-				_, err := io.WriteString(writer, code)
-				if nil != err {
-					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
-				}
-			case "</pre>\n" == closecode && r == '□': // U+25A1 White Square
-				const code string =
-				`<div style="`+
-					`display:inline-block;`+
-					`margin:0;`+
-					`padding:0;`+
-					`width:1em;`+
-					`height:1em;`+
-					`background-color:#FF7F00;`+
-				`"></div>`
-				_, err := io.WriteString(writer, code)
-				if nil != err {
-					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
-				}
-			case "</pre>\n" == closecode && r == '▪': // U+25AA Black Small Square
-				const code string =
-				`<div style="`+
-					`display:inline-block;`+
-					`margin:0;`+
-					`padding:0;`+
-					`width:0.5em;`+
-					`height:0.5em;`+
-					`background-color:#4f1802;`+
-				`"></div>`
-				_, err := io.WriteString(writer, code)
-				if nil != err {
-					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
-				}
-			case "</pre>\n" == closecode && r == '▫': // U+25AB Black Small Square
-				const code string =
-				`<div style="`+
-					`display:inline-block;`+
-					`margin:0;`+
-					`padding:0;`+
-					`width:0.5em;`+
-					`height:0.5em;`+
-					`background-color:#FF7F00;`+
-				`"></div>`
-				_, err := io.WriteString(writer, code)
-				if nil != err {
-					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
-				}
-			case "</pre>\n" == closecode && r == '⬝': // U+2B1D Black Very Small Square
-				const code string =
-				`<div style="`+
-					`display:inline-block;`+
-					`margin:0;`+
-					`padding:0;`+
-					`width:0.25em;`+
-					`height:0.25em;`+
-					`background-color:#4f1802;`+
-				`"></div>`
-				_, err := io.WriteString(writer, code)
-				if nil != err {
-					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
-				}
-			case "</pre>\n" == closecode && r == '⬞': // U+2B1D White Very Small Square
-				const code string =
-				`<div style="`+
-					`display:inline-block;`+
-					`margin:0;`+
-					`padding:0;`+
-					`width:0.25em;`+
-					`height:0.25em;`+
-					`background-color:#FF7F00;`+
-				`"></div>`
-				_, err := io.WriteString(writer, code)
-				if nil != err {
-					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
-				}
-			case "</ul>\n" == closecode && (
-			         r == '•' || // U+2022 Bullet
-			         r == '‣' || // U+2023 Triangular Bullet
-			         r == '⁃' ): // U+2043 Hyphen Bullet
-				const code string = "<li>"
-				_, err := io.WriteString(writer, code)
-				if nil != err {
-					return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
-				}
-			default:
-				err = texttranscoder.InterpretRune(r)
-				if nil != err {
-					return erorr.Errorf("wikiwiki: text-transcoder had trouble interpretting rune %q (%U): %w", r, r, err)
-				}
-			}
-			interpretted++
-		}
-
-		if interpretted <= 0 {
-			return nil
 		}
 
 		{
-			_, err := io.WriteString(writer, closecode)
+			var code string = element.End()
+
+			_, err := io.WriteString(writer, code)
 			if nil != err {
-				return erorr.Errorf("wikiwiki: problem writing %q: %w", closecode, err)
+				return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
 			}
-			closecode = ""
+			element = ""
 		}
 	}
 
