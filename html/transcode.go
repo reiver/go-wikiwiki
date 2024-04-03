@@ -71,9 +71,35 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 			if io.EOF == err {
 				return nil
 			}
+			if nil != err {
+				return erorr.Errorf("wikiwiki: problem reading rune: %w", err)
+			}
 		}
 
 		var  element internalElement = internalElement(string(r))
+
+		{
+			switch element {
+			case "§":
+				miniloop: for {
+					var size int
+
+					r, size, err = utf8.ReadRune(block)
+					if 0 < size {
+						switch r {
+						case '§':
+							element = element+"§"
+							continue
+						case ' ':
+							break miniloop
+						default:
+							return erorr.Error("wikiwiki: heading requires a space between § symbols and title text")
+						}
+					}
+
+				}
+			}
+		}
 
 		{
 			var code string = element.Begin()
