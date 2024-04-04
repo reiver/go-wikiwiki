@@ -47,27 +47,10 @@ blockquote {
 	color:            rgba(0,0,0, 0.8);
 
 	margin:  0.25em 0.25em;
-	padding: 4em    4em;
+	padding: 1.25em 1.25em;
 
 	border-left:  0.25em solid rgba(0,0,0, 0.1);
 	border-right: 0.25em solid rgba(0,0,0, 0.1);
-}
-blockquote:before {
-	position:absolute;
-	display:block;
-
-	margin:0;
-	padding:0;
-
-	content: "\201C";
-
-	font-size:7em;
-	line-height:0.5em;
-
-	top:1em;
-	left:0.2em;
-
-	color:rgba(0,0,0, 0.1);
 }
 
 p {
