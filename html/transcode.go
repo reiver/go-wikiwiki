@@ -3,7 +3,6 @@ package wikiwikihtml
 import (
 	"bufio"
 	"errors"
-	"fmt"
 	"io"
 
 	"github.com/reiver/go-iolsep"
@@ -36,7 +35,6 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 			return err
 		}
 	}
-fmt.Println("magic")
 
 	var textrenderer wikiwikirenderer.TextRenderer = wikiwikihtmltextrenderer.TextRenderer
 	if nil == textrenderer {
@@ -70,7 +68,6 @@ fmt.Println("magic")
 				return erorr.Errorf("wikiwiki: problem skipping EOL runes: %w", err)
 			}
 		}
-fmt.Println("\t[for] skipped, maybe")
 
 		var peeked rune
 		{
@@ -95,7 +92,6 @@ fmt.Println("\t[for] skipped, maybe")
 
 			peeked = r
 		}
-fmt.Printf("\t[for] peeked = %q (%U)\n", peeked, peeked)
 
 		var element internalElement = internalElement(string(peeked))
 
@@ -174,7 +170,6 @@ fmt.Printf("\t[for] peeked = %q (%U)\n", peeked, peeked)
 				}
 			}
 		}
-fmt.Printf("\t[for] element = %q\n", string(element))
 
 		var block io.ReadCloser = iopsep.NewParagraphReadCloser(bufferedreader)
 		if nil == block {
@@ -190,7 +185,6 @@ fmt.Printf("\t[for] element = %q\n", string(element))
 				return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
 			}
 
-fmt.Printf("\t[for] begin code = %q\n", code)
 		}
 
 		for {
@@ -199,23 +193,19 @@ fmt.Printf("\t[for] begin code = %q\n", code)
 				return errNilLineReader
 			}
 			defer line.Close()
-fmt.Println("\t[for][for] line")
 
 			err = nil
 			var size int
 
 			var numRunes int
 			for nil == err {
-fmt.Printf("\t[for][for][for] runes (%d)\n", numRunes)
 				var r rune
 
 				r, size, err = utf8.ReadRune(line)
-fmt.Printf("\t[for][for][for] r, size, err = %q (%U), %d, (%T) %s\n", r, r, size, err, err)
 				if 0 < size {
 					numRunes++
 
 					var particle internalParticle = internalParticle(r)
-fmt.Printf("\t[for][for][for] particle: %q (%U)\n", rune(particle), rune(particle))
 
 					render, rendered := particle.Render()
 					if rendered {
