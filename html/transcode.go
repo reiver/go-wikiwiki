@@ -13,6 +13,7 @@ import (
 	"sourcecode.social/reiver/go-erorr"
 	"sourcecode.social/reiver/go-utf8"
 
+	"github.com/reiver/go-wikiwiki/html/paragraph"
 	"github.com/reiver/go-wikiwiki/html/renderer/text"
 	wikiwikifilemagic "github.com/reiver/go-wikiwiki/internal/magic"
 	"github.com/reiver/go-wikiwiki/magic"
@@ -209,6 +210,17 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 			return errNilBlockReader
 		}
 		defer block.Close()
+
+		if "</p>\n" == element.End() {
+			err := paragraph.Transcode(writer, block)
+			if nil != err {
+				return err
+			}
+
+	/////////////// CONTINUE
+			continue
+		}
+
 
 		{
 			var code string = element.Begin()
