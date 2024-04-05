@@ -103,6 +103,8 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 			const magicStringTriangularBulletedList string = string(wikiwikimagic.TriangularBulletedList)
 			const magicStringHyphenBulletedList     string = string(wikiwikimagic.HyphenBulletedList)
 
+			const magicStringQuotation string = string(wikiwikimagic.Quotation)
+
 			switch string(element) {
 			case magicStringHeading:
 				element = ""
@@ -168,6 +170,37 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 						return err
 					}
 				}
+			case magicStringQuotation:
+				element = ""
+
+				var i int
+				miniloop3: for i < 256 {
+					i++
+
+					r, size, err := utf8.ReadRune(bufferedreader)
+					if 0 < size {
+						switch r {
+						case wikiwikimagic.Quotation:
+							element = element+internalElement(string(r))
+							continue
+						case ' ':
+							element = element+internalElement(string(r))
+							break miniloop3
+						default:
+							element = element+internalElement(string(r))
+							break miniloop3
+						}
+					}
+					if errors.Is(err, io.EOF) {
+						io.WriteString(writer, "<p>")
+						io.WriteString(writer, string(element))
+						io.WriteString(writer, "</p>")
+						return nil
+					}
+					if nil != err {
+						return err
+					}
+				}
 			}
 		}
 
@@ -208,12 +241,21 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 					var particle internalParticle = internalParticle(r)
 
 					render, rendered := particle.Render()
-					if rendered {
+					switch {
+					case rendered:
 						_, err := io.WriteString(writer, render)
 						if nil != err {
 							return erorr.Errorf("wikiwiki: problem writing %q: %w", render, err)
 						}
-					} else {
+//@TODO: should only do this when it is in a list.
+					case wikiwikimagic.Quotation == r:
+						const code string = "<br />"
+
+						_, err := io.WriteString(writer, render)
+						if nil != err {
+							return erorr.Errorf("wikiwiki: problem writing %q: %w", render, err)
+						}
+					default:
 						err = texttranscoder.InterpretRune(r)
 						if nil != err {
 							return erorr.Errorf("wikiwiki: text-transcoder had trouble interpretting rune %q (%U): %w", r, r, err)
