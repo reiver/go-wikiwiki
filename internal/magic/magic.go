@@ -1,3 +1,7 @@
 package wikiwikimagic
 
-const Magic string = "wiki/1"
+import (
+	magic "github.com/reiver/go-wikiwiki/magic"
+)
+
+const Magic string = magic.File

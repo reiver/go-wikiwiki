@@ -1,16 +1,22 @@
 package wikiwikihtml
 
 import (
+	"bufio"
 	"errors"
+	"fmt"
 	"io"
 
+	"github.com/reiver/go-iolsep"
 	"github.com/reiver/go-iopsep"
+	"github.com/reiver/go-peek"
+	"github.com/reiver/go-skip"
 	"github.com/reiver/go-unicode"
 	"sourcecode.social/reiver/go-erorr"
 	"sourcecode.social/reiver/go-utf8"
 
 	"github.com/reiver/go-wikiwiki/html/renderer/text"
-	"github.com/reiver/go-wikiwiki/internal/magic"
+	wikiwikifilemagic "github.com/reiver/go-wikiwiki/internal/magic"
+	"github.com/reiver/go-wikiwiki/magic"
 	"github.com/reiver/go-wikiwiki/renderer"
 	"github.com/reiver/go-wikiwiki/transcoder"
 	"github.com/reiver/go-wikiwiki/transcoder/text"
@@ -25,11 +31,12 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 	}
 
 	{
-		_, err := wikiwikimagic.ReadMagic(reader)
+		_, err := wikiwikifilemagic.ReadMagic(reader)
 		if nil != err {
 			return err
 		}
 	}
+fmt.Println("magic")
 
 	var textrenderer wikiwikirenderer.TextRenderer = wikiwikihtmltextrenderer.TextRenderer
 	if nil == textrenderer {
@@ -47,59 +54,133 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 		}
 	}()
 
+	var bufferedreader *bufio.Reader = bufio.NewReader(reader)
+	if nil == bufferedreader {
+		return errNilBufferedReader
+	}
+
+
 	for {
-		var block io.ReadCloser = iopsep.NewParagraphReadCloser(reader)
-		if nil == block {
-			return errNilBlockReader
-		}
-
-		var r rune
-
-		// ignore any leading empty lines.
-		loop: for {
-			var size int
-
-			r, size, err = utf8.ReadRune(block)
-			if 0 < size {
-				switch r {
-				case unicode.LF, unicode.CR, unicode.NEL, unicode.PS:
-					// nothing here.
-				default:
-					break loop
-				}
-			}
+		{
+			err := skip.SkipRunes(bufferedreader, unicode.LF, unicode.CR, unicode.NEL, unicode.PS)
 			if io.EOF == err {
 				return nil
 			}
 			if nil != err {
-				return erorr.Errorf("wikiwiki: problem reading rune: %w", err)
+				return erorr.Errorf("wikiwiki: problem skipping EOL runes: %w", err)
 			}
 		}
+fmt.Println("\t[for] skipped, maybe")
 
-		var  element internalElement = internalElement(string(r))
+		var peeked rune
+		{
+			r, size, err := peek.PeekRune(bufferedreader)
+
+			if nil != err {
+				if 0 < size {
+					err = texttranscoder.InterpretRune(r)
+					if nil != err {
+						return erorr.Errorf("wikiwiki: text-transcoder had trouble interpretting rune %q (%U): %w", r, r, err)
+					}
+				}
+				if io.EOF == err {
+					return nil
+				}
+				return err
+			}
+
+			if size <= 0 {
+				return erorr.Errorf("wikiwiki: could not read rune at the beginning of the block: %w", err)
+			}
+
+			peeked = r
+		}
+fmt.Printf("\t[for] peeked = %q (%U)\n", peeked, peeked)
+
+		var element internalElement = internalElement(string(peeked))
 
 		{
-			switch element {
-			case "§":
-				miniloop: for {
+
+			const magicStringHeading string = string(wikiwikimagic.Heading)
+
+			const magicStringRoundBulletedList      string = string(wikiwikimagic.RoundBulletedList)
+			const magicStringTriangularBulletedList string = string(wikiwikimagic.TriangularBulletedList)
+			const magicStringHyphenBulletedList     string = string(wikiwikimagic.HyphenBulletedList)
+
+			switch string(element) {
+			case magicStringHeading:
+				element = ""
+
+				var i int
+				miniloop1: for i < 256 {
+					i++
+
 					var size int
 
-					r, size, err = utf8.ReadRune(block)
+					r, size, err := utf8.ReadRune(bufferedreader)
 					if 0 < size {
 						switch r {
 						case '§':
-							element = element+"§"
+							element = element+internalElement(string(r))
 							continue
 						case ' ':
-							break miniloop
+							element = element+internalElement(string(r))
+							break miniloop1
 						default:
-							return erorr.Error("wikiwiki: heading requires a space between § symbols and title text")
+							element = element+internalElement(string(r))
+							break miniloop1
 						}
 					}
+					if errors.Is(err, io.EOF) {
+						io.WriteString(writer, "<p>")
+						io.WriteString(writer, string(element))
+						io.WriteString(writer, "</p>")
+						return nil
+					}
+					if nil != err {
+						return err
+					}
+				}
+			case magicStringRoundBulletedList, magicStringTriangularBulletedList, magicStringHyphenBulletedList:
+				element = ""
 
+				var i int
+				miniloop2: for i < 256 {
+					i++
+
+					r, size, err := utf8.ReadRune(bufferedreader)
+					if 0 < size {
+						switch r {
+						case wikiwikimagic.RoundBulletedList, wikiwikimagic.TriangularBulletedList, wikiwikimagic.HyphenBulletedList:
+							element = element+internalElement(string(r))
+							continue
+						case ' ':
+							element = element+internalElement(string(r))
+							break miniloop2
+						default:
+							element = element+internalElement(string(r))
+							break miniloop2
+						}
+					}
+					if errors.Is(err, io.EOF) {
+						io.WriteString(writer, "<p>")
+						io.WriteString(writer, string(element))
+						io.WriteString(writer, "</p>")
+						return nil
+					}
+					if nil != err {
+						return err
+					}
 				}
 			}
 		}
+fmt.Printf("\t[for] element = %q\n", string(element))
+
+		var block io.ReadCloser = iopsep.NewParagraphReadCloser(bufferedreader)
+		if nil == block {
+			return errNilBlockReader
+		}
+		defer block.Close()
 
 		{
 			var code string = element.Begin()
@@ -108,46 +189,60 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 			if nil != err {
 				return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
 			}
-		}
 
-		{
-			var buffer string = element.Buffer()
-			if 0 < len(buffer) {
-				_, err := io.WriteString(writer, buffer)
-				if nil != err {
-					return erorr.Errorf("wikiwiki: problem writing %q: %w", buffer, err)
-				}
-			}
+fmt.Printf("\t[for] begin code = %q\n", code)
 		}
 
 		for {
+			var line io.ReadCloser = iolsep.NewLineReadCloser(block)
+			if nil == line {
+				return errNilLineReader
+			}
+			defer line.Close()
+fmt.Println("\t[for][for] line")
 
-			r, size, err := utf8.ReadRune(block)
-			if 0 < size {
+			err = nil
+			var size int
 
-				var particle internalParticle = internalParticle(r)
+			var numRunes int
+			for nil == err {
+fmt.Printf("\t[for][for][for] runes (%d)\n", numRunes)
+				var r rune
 
-				render, rendered := particle.Render()
-				if rendered {
-					_, err := io.WriteString(writer, render)
-					if nil != err {
-						return erorr.Errorf("wikiwiki: problem writing %q: %w", render, err)
-					}
-				} else {
-					err = texttranscoder.InterpretRune(r)
-					if nil != err {
-						return erorr.Errorf("wikiwiki: text-transcoder had trouble interpretting rune %q (%U): %w", r, r, err)
+				r, size, err = utf8.ReadRune(line)
+fmt.Printf("\t[for][for][for] r, size, err = %q (%U), %d, (%T) %s\n", r, r, size, err, err)
+				if 0 < size {
+					numRunes++
+
+					var particle internalParticle = internalParticle(r)
+fmt.Printf("\t[for][for][for] particle: %q (%U)\n", rune(particle), rune(particle))
+
+					render, rendered := particle.Render()
+					if rendered {
+						_, err := io.WriteString(writer, render)
+						if nil != err {
+							return erorr.Errorf("wikiwiki: problem writing %q: %w", render, err)
+						}
+					} else {
+						err = texttranscoder.InterpretRune(r)
+						if nil != err {
+							return erorr.Errorf("wikiwiki: text-transcoder had trouble interpretting rune %q (%U): %w", r, r, err)
+						}
 					}
 				}
 			}
-
-			if errors.Is(err, io.EOF) {
-		/////////////// BREAK
-				break
+			if errors.Is(err,io.EOF) {
+				if numRunes <= 0 {
+		/////////////////////// BREAK
+					break
+				}
+		/////////////// CONTINUE
+				continue
 			}
-			if nil != err {
-				return erorr.Errorf("wikiwiki: problem readung rune: %w", err)
+			if nil == err && size <= 0 {
+				return errInternalError
 			}
+			return err
 		}
 
 		{
@@ -157,8 +252,8 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 			if nil != err {
 				return erorr.Errorf("wikiwiki: problem writing %q: %w", code, err)
 			}
-			element = ""
 		}
+
 	}
 
 	return nil
