@@ -5,6 +5,7 @@ import (
 )
 
 const (
-	errNilReader         = erorr.Error("wikiwiki: nil reader")
-	errNilWriter         = erorr.Error("wikiwiki: nil writer")
+	errInternalError = erorr.Error("wikiwiki internal-error")
+	errNilReader     = erorr.Error("wikiwiki: nil reader")
+	errNilWriter     = erorr.Error("wikiwiki: nil writer")
 )

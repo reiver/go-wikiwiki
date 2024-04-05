@@ -7,9 +7,14 @@ import (
 	"github.com/reiver/go-unicode"
 	"sourcecode.social/reiver/go-erorr"
 	"sourcecode.social/reiver/go-utf8"
+
+	"github.com/reiver/go-wikiwiki/html/renderer/text"
+	"github.com/reiver/go-wikiwiki/renderer"
+	"github.com/reiver/go-wikiwiki/transcoder"
+	"github.com/reiver/go-wikiwiki/transcoder/text"
 )
 
-func Transcode(writer io.Writer, reader io.Reader) error {
+func Transcode(writer io.Writer, reader io.Reader) (err error) {
 	if nil == writer {
 		return errNilWriter
 	}
@@ -26,6 +31,23 @@ func Transcode(writer io.Writer, reader io.Reader) error {
 		}
 	}
 
+
+        var textrenderer wikiwikirenderer.TextRenderer = wikiwikihtmltextrenderer.TextRenderer
+        if nil == textrenderer {
+                return errInternalError
+        }
+
+        var texttranscoder wikiwikitranscoder.TextTranscoder = wikiwikitexttranscoder.NewTextTranscoder(writer, textrenderer)
+        if nil == texttranscoder {
+                return errInternalError
+        }
+        defer func() {
+                err = texttranscoder.Close()
+                if nil != err {
+                        err = erorr.Errorf("wikiwiki: problem closing text-transcoder: %w", err)
+                }
+        }()
+
 	for {
 		r, size, err := utf8.ReadRune(reader)
 		if 0 < size {
@@ -38,31 +60,10 @@ func Transcode(writer io.Writer, reader io.Reader) error {
 				if nil != err {
 					return erorr.Errorf("wikiwiki: while trying to transcode wiki to HTML, had problem writing %q: %w", code, err)
 				}
-			case '&':
-				const code string = "&amp;"
-
-				_, err := io.WriteString(writer, code)
-				if nil != err {
-					return erorr.Errorf("wikiwiki: while trying to transcode wiki to HTML, had problem writing %q: %w", code, err)
-				}
-			case '<':
-				const code string = "&lt;"
-
-				_, err := io.WriteString(writer, code)
-				if nil != err {
-					return erorr.Errorf("wikiwiki: while trying to transcode wiki to HTML, had problem writing %q: %w", code, err)
-				}
-			case '>':
-				const code string = "&gt;"
-
-				_, err := io.WriteString(writer, code)
-				if nil != err {
-					return erorr.Errorf("wikiwiki: while trying to transcode wiki to HTML, had problem writing %q: %w", code, err)
-				}
 			default:
-				_, err := utf8.WriteRune(writer, r)
+				err = texttranscoder.InterpretRune(r)
 				if nil != err {
-					return erorr.Errorf("wikiwiki: while trying to transcode wiki to HTML, had problem writing rune %q (%U): %w", r, r, err)
+					return erorr.Errorf("wikiwiki: text-transcoder had trouble interpretting rune %q (%U): %w", r, r, err)
 				}
 			}
 
