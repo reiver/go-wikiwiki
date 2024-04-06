@@ -164,6 +164,7 @@ func (receiver internalFile) transcode() {
 			`<html>`+"\n"+
 			`<head>`+"\n"+
 			`<meta charset="utf-8" />`+"\n"+
+			`<base href="/" />`+"\n"+
 			`<style type="text/css">`+"\n"+
 			style+
 			`</style>`+"\n"+
