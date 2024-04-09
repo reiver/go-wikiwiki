@@ -13,7 +13,7 @@ Online documentation, which includes examples, can be found at: http://godoc.org
 This is the syntax for wiki text markup:
 
 ```
-''superscript'
+''superscript''
 ((no-op))
 **bold**
 ,,subscript,,
