@@ -1,3 +1,3 @@
 package wikiwikimagic
 
-const Preformatted rune = '.' // U+002E Full Stop
+const Preformatted rune = '\t' // U+0009 Horizontal Tab
