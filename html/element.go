@@ -29,8 +29,11 @@ type internalElement string
 
 func (receiver internalElement) Begin() string {
 	switch string(receiver) {
+//@TODO
+//	case pre:
+//		return `<pre style="line-height:0.125em;">`+"\n"
 	case pre:
-		return `<pre style="line-height:0.125em;">`+"\n"
+		return `<pre>`+"\n"
 	case listrb:
 		return `<ul style="list-style-type:disc">`
 	case listtb:

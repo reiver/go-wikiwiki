@@ -12,6 +12,8 @@ func (receiver internalParticle) Render() (string, bool) {
 	switch r {
 	case unicode.LS:
 		return "<br />\n", true
+//@TODO
+/*
 	case '■': // U+25A0 Black Square
 		return `<div style="`+
 				`display:inline-block;`+
@@ -67,6 +69,7 @@ func (receiver internalParticle) Render() (string, bool) {
 				`background-color:#FF7F00;`+
 			`"></div>`, true
 
+*/
 	case '•', // U+2022 Bullet
 	     '‣', // U+2023 Triangular Bullet
 	     '⁃': // U+2043 Hyphen Bullet
