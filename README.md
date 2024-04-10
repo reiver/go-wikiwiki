@@ -45,11 +45,12 @@ This is the syntax  for wiki block markup:
 ```
 
 ```
-.
-pre line 1
-pre line 2
-pre line 3
+	pre line 1
+	pre line 2
+	pre line 3
 ```
+(The preformatted lines are preceded by a horizontal-tab character.)
+
 
 ## Import
 
