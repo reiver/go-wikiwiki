@@ -37,7 +37,7 @@ func (receiver internalElement) Begin() string {
 	case listrb:
 		return `<ul style="list-style-type:disc">`
 	case listtb:
-		return `<ul style="list-style-type:&quot‣;&quot;">`
+		return `<ul style="list-style-type:&quot;‣&quot;">`
 	case listhb:
 		return `<ul style="list-style-type:&quot;⁃&quot;">`
 	case h1:
