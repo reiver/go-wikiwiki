@@ -8,8 +8,8 @@ github.com/reiver/go-path v0.0.0-20240228195003-c9685181c3a3 h1:DPQhDR81e5ddqK0J
 github.com/reiver/go-path v0.0.0-20240228195003-c9685181c3a3/go.mod h1:4H3fxXTRSuvWviraF1tFTVXhRciV8KFGq5tzo1gb2Tk=
 github.com/reiver/go-peek v0.0.0-20240404231846-cdb8a84b0a23 h1:VzCXSTCzEZ51Mp3gGb9rj0AWCWWOdgd9WtRa5YOiZww=
 github.com/reiver/go-peek v0.0.0-20240404231846-cdb8a84b0a23/go.mod h1:1TwOoWDvmNTvpTuWIcgsjLagTMWfsTm/DDxQFh+9GHo=
-github.com/reiver/go-skip v0.0.0-20240405010537-51803de58f98 h1:JZefKE9ty1GhCCSplhFeia1XNk4PB1hJ6bJa/CEFPrI=
-github.com/reiver/go-skip v0.0.0-20240405010537-51803de58f98/go.mod h1:+28cz0ac310x7agCmiTCKtUXdxh6nQpBTEAhdV2p83k=
+github.com/reiver/go-skip v0.0.0-20240423175147-30bfa559e109 h1:7Ozxwei3Q2/OFT7WinAijzYwKn3C+sms6rp8+YqRzcM=
+github.com/reiver/go-skip v0.0.0-20240423175147-30bfa559e109/go.mod h1:+28cz0ac310x7agCmiTCKtUXdxh6nQpBTEAhdV2p83k=
 github.com/reiver/go-unicode v0.0.0-20240330202432-e385f372c7f8 h1:nVeubG6cNuKtxg83omhjqwsuGmWoEevARXgCEy/b7mk=
 github.com/reiver/go-unicode v0.0.0-20240330202432-e385f372c7f8/go.mod h1:oQfIIPgO9kwaidcFsKuyAXEODc15w+F1XNl0neJbkVw=
 sourcecode.social/reiver/go-eol v0.0.0-20240326064055-6080dd101592 h1:5lIRVxewoVEKA8AB/xLirgx16VVGAvYY15BWZzLQdh0=
