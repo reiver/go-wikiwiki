@@ -69,6 +69,10 @@ p, li, blockquote {
 	text-align: justify;
 }
 
+img {
+	max-width: min(90vw, 90vh);
+}
+
 img[align="right"] {
 	margin-left:1.5em;
 }
