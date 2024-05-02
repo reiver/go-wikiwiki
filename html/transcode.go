@@ -61,7 +61,7 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 
 	for {
 		{
-			err := skip.SkipRunes(bufferedreader, unicode.LF, unicode.CR, unicode.NEL, unicode.PS)
+			err := skip.AnyRunes(bufferedreader, unicode.LF, unicode.CR, unicode.NEL, unicode.PS)
 			if io.EOF == err {
 				return nil
 			}
@@ -92,6 +92,15 @@ func Transcode(writer io.Writer, reader io.Reader) (err error) {
 			}
 
 			peeked = r
+		}
+
+		if '⁁' == peeked {
+			err := transcodeInsertion(writer, bufferedreader)
+			if nil != err {
+				return err
+			}
+
+			continue
 		}
 
 		var element internalElement = internalElement(string(peeked))
