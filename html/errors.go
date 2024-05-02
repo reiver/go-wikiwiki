@@ -14,5 +14,6 @@ const (
 	errNilPipeWriter     = erorr.Error("wikiwiki: nil pipe-writer")
 	errNilReader         = erorr.Error("wikiwiki: nil reader")
 	errNilReceiver       = erorr.Error("wikiwiki: nil receiver")
+	errNilRuneScanner    = erorr.Error("wikiwiki: nil rune-scanner")
 	errNilWriter         = erorr.Error("wikiwiki: nil writer")
 )
