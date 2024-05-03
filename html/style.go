@@ -70,7 +70,7 @@ p, li, blockquote {
 }
 
 img {
-	max-width: min(90vw, 90vh);
+	max-width: min(100vw, 100vh);
 }
 
 img[align="right"] {
