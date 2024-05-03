@@ -69,6 +69,11 @@ p, li, blockquote {
 	text-align: justify;
 }
 
+figure {
+	margin-left:0;
+	margin-right:0;
+}
+
 img {
 	max-width: min(100vw, 100vh);
 }
