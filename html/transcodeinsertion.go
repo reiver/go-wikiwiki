@@ -139,6 +139,9 @@ func transcodeInsertion(writer io.Writer, runescanner io.RuneScanner) (err error
 		case ".ogv",".mp4",".webm":
 			var escaped string = htmlescape.String(target)
 			str = fmt.Sprintf(`<video src="%s" controls></video>`, escaped)
+		case ".flac", ".oga",".mp3",".wav":
+			var escaped string = htmlescape.String(target)
+			str = fmt.Sprintf(`<audio src="%s" controls></audio>`, escaped)
 		default:
 			var escaped string = htmlescape.String(target)
 			str = fmt.Sprintf(`<a href="%s" />%s</a>`, escaped, escaped)
