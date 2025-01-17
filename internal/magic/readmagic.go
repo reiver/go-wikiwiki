@@ -4,7 +4,7 @@ import (
 	"io"
 
 	"github.com/reiver/go-erorr"
-	"sourcecode.social/reiver/go-utf8"
+	"github.com/reiver/go-utf8"
 
 	. "github.com/reiver/go-wikiwiki/internal/eol"
 )

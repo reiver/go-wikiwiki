@@ -6,7 +6,7 @@ import (
 	"io"
 	"strings"
 
-	"sourcecode.social/reiver/go-utf8"
+	"github.com/reiver/go-utf8"
 )
 
 func TestTranscodeInsertion(t *testing.T) {

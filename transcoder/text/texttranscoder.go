@@ -3,7 +3,7 @@ package wikiwikitexttranscoder
 import (
 	"io"
 
-	"sourcecode.social/reiver/go-opt"
+	"github.com/reiver/go-opt"
 
 	"github.com/reiver/go-wikiwiki/internal/stack"
 	"github.com/reiver/go-wikiwiki/renderer"

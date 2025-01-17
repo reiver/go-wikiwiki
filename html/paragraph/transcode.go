@@ -6,7 +6,7 @@ import (
 
 	"github.com/reiver/go-unicode"
 	"github.com/reiver/go-erorr"
-	"sourcecode.social/reiver/go-utf8"
+	"github.com/reiver/go-utf8"
 
 	"github.com/reiver/go-wikiwiki/html/renderer/text"
 	"github.com/reiver/go-wikiwiki/renderer"
