@@ -2,6 +2,8 @@ github.com/reiver/go-ascii v0.0.0-20241231150941-77b5f046e732 h1:ZuWdUYMnbfBtCN/
 github.com/reiver/go-ascii v0.0.0-20241231150941-77b5f046e732/go.mod h1:f43/Y1zpLvqorZN0BelarPzO2GrotAQrBy3T08NUSTM=
 github.com/reiver/go-erorr v0.0.0-20240801233437-8cbde6d1fa3f h1:D1QSxKHm8U73XhjsW3SFLkT0zT5pKJi+1KGboMhY1Rk=
 github.com/reiver/go-erorr v0.0.0-20240801233437-8cbde6d1fa3f/go.mod h1:F0HbBf+Ak2ZlE8YkDW4Y+KxaUmT0KaaIJK6CXY3cJxE=
+github.com/reiver/go-htmlescape v0.0.0-20250114014205-592635259450 h1:npqcrOWt3KkumQQI5jULw8Sq4rCfMR2PZ2WCiqmVnJk=
+github.com/reiver/go-htmlescape v0.0.0-20250114014205-592635259450/go.mod h1:ky7bMnfOO2ldJvLXDw+IHVFkjNIaz2sOH0A51kG5LT0=
 github.com/reiver/go-iolsep v0.0.0-20240403200747-06510a3258fa h1:pizKj9zyYLbbSiG6eVZkF/B4n1wHmcy4+QS54lnW59k=
 github.com/reiver/go-iolsep v0.0.0-20240403200747-06510a3258fa/go.mod h1:8yLTiIG9EfrSvaNxpfsle3WsrF0K33X/tCSnowfT5xw=
 github.com/reiver/go-iopsep v0.0.0-20240403200735-607acd3df170 h1:JuB4LcHbipPM44cqFcCxZ6QIFK1/EvjgMpkQPhxyVtA=
@@ -16,8 +18,6 @@ github.com/reiver/go-unicode v0.0.0-20240330202432-e385f372c7f8 h1:nVeubG6cNuKtx
 github.com/reiver/go-unicode v0.0.0-20240330202432-e385f372c7f8/go.mod h1:oQfIIPgO9kwaidcFsKuyAXEODc15w+F1XNl0neJbkVw=
 sourcecode.social/reiver/go-erorr v0.0.0-20230922202459-231149d185a1 h1:wpnz4JicQBLWrgGphYBls7DysIFCcnWgDz/vce/sY8E=
 sourcecode.social/reiver/go-erorr v0.0.0-20230922202459-231149d185a1/go.mod h1:NFtd7fzEf0r6A6R7JXYZfayRhPaJy0zt/18VWoLzrxA=
-sourcecode.social/reiver/go-htmlescape v0.0.0-20240213164123-853ab9c1e097 h1:2Bp6FniwShUyeC72XqDEhLXGnk1yRk3FMFdk0UzOt0Q=
-sourcecode.social/reiver/go-htmlescape v0.0.0-20240213164123-853ab9c1e097/go.mod h1:5LNOIUUSekvkj4Kk+873bWrVfgAyzD+4aWahMeWbT+s=
 sourcecode.social/reiver/go-opt v0.0.0-20240224175000-afc1a40c4b67 h1:LU315YjZxmPvedaRZeNtZ+9A2tZIoWv/EWjU1h27FvE=
 sourcecode.social/reiver/go-opt v0.0.0-20240224175000-afc1a40c4b67/go.mod h1:O6WKM2UcKkheRT/dA6A2b1tW0m+WenSbxdcXE+idxzI=
 sourcecode.social/reiver/go-strfs v0.0.0-20231023185051-13e37a7f9fc8 h1:X9k2Qiu2tH+R7isQW0x5J5pQQzdx0lsNkcxg3a1M+uc=

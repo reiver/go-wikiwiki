@@ -1,6 +1,6 @@
 module github.com/reiver/go-wikiwiki
 
-go 1.22.0
+go 1.23.4
 
 require (
 	github.com/reiver/go-ascii v0.0.0-20241231150941-77b5f046e732
@@ -16,6 +16,6 @@ require (
 	sourcecode.social/reiver/go-utf8 v0.0.0-20240331163454-e474e88f6f3c
 )
 
-require sourcecode.social/reiver/go-htmlescape v0.0.0-20240213164123-853ab9c1e097
-
 require github.com/reiver/go-erorr v0.0.0-20240801233437-8cbde6d1fa3f
+
+require github.com/reiver/go-htmlescape v0.0.0-20250114014205-592635259450

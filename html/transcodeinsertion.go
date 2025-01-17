@@ -6,7 +6,7 @@ import (
 	"io"
 	"strings"
 
-	"sourcecode.social/reiver/go-htmlescape"
+	"github.com/reiver/go-htmlescape"
 	"github.com/reiver/go-path"
 	"github.com/reiver/go-skip"
 	"github.com/reiver/go-unicode"
