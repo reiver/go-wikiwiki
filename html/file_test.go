@@ -7,7 +7,7 @@ import (
 	"io/fs"
 	"time"
 
-	"sourcecode.social/reiver/go-strfs"
+	"github.com/reiver/go-strfs"
 
 	"github.com/reiver/go-wikiwiki/html"
 )

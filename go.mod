@@ -12,10 +12,11 @@ require (
 	github.com/reiver/go-unicode v0.0.0-20240330202432-e385f372c7f8
 	sourcecode.social/reiver/go-erorr v0.0.0-20230922202459-231149d185a1 // indirect
 	sourcecode.social/reiver/go-opt v0.0.0-20240224175000-afc1a40c4b67
-	sourcecode.social/reiver/go-strfs v0.0.0-20231023185051-13e37a7f9fc8
 	sourcecode.social/reiver/go-utf8 v0.0.0-20240331163454-e474e88f6f3c
 )
 
 require github.com/reiver/go-erorr v0.0.0-20240801233437-8cbde6d1fa3f
 
 require github.com/reiver/go-htmlescape v0.0.0-20250114014205-592635259450
+
+require github.com/reiver/go-strfs v0.0.0-20240825123104-a22d8dfd04d4
