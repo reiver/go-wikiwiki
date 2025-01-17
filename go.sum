@@ -4,8 +4,8 @@ github.com/reiver/go-iolsep v0.0.0-20240403200747-06510a3258fa h1:pizKj9zyYLbbSi
 github.com/reiver/go-iolsep v0.0.0-20240403200747-06510a3258fa/go.mod h1:8yLTiIG9EfrSvaNxpfsle3WsrF0K33X/tCSnowfT5xw=
 github.com/reiver/go-iopsep v0.0.0-20240403200735-607acd3df170 h1:JuB4LcHbipPM44cqFcCxZ6QIFK1/EvjgMpkQPhxyVtA=
 github.com/reiver/go-iopsep v0.0.0-20240403200735-607acd3df170/go.mod h1:HjWawxxLUfBbwPHsOAULVSp5XfDXLexIYeA8S2I6qos=
-github.com/reiver/go-path v0.0.0-20240228195003-c9685181c3a3 h1:DPQhDR81e5ddqK0JuJ9JsFb7ermbo3t+ynj7OsCMcXM=
-github.com/reiver/go-path v0.0.0-20240228195003-c9685181c3a3/go.mod h1:4H3fxXTRSuvWviraF1tFTVXhRciV8KFGq5tzo1gb2Tk=
+github.com/reiver/go-path v0.0.0-20240327181650-5f2ee05890d8 h1:8JFCnRV4GVjP8XUFuXvCH42o4fXHSkGcUkfsloB+LeY=
+github.com/reiver/go-path v0.0.0-20240327181650-5f2ee05890d8/go.mod h1:4H3fxXTRSuvWviraF1tFTVXhRciV8KFGq5tzo1gb2Tk=
 github.com/reiver/go-peek v0.0.0-20240404231846-cdb8a84b0a23 h1:VzCXSTCzEZ51Mp3gGb9rj0AWCWWOdgd9WtRa5YOiZww=
 github.com/reiver/go-peek v0.0.0-20240404231846-cdb8a84b0a23/go.mod h1:1TwOoWDvmNTvpTuWIcgsjLagTMWfsTm/DDxQFh+9GHo=
 github.com/reiver/go-skip v0.0.0-20240502143132-534e2b40ea14 h1:JNVd8zAkV8z63coIrJNTFAvAhCad/zYwuBaDyf3Z9hs=

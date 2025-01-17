@@ -6,7 +6,7 @@ require (
 	github.com/reiver/go-ascii v0.0.0-20241231150941-77b5f046e732
 	github.com/reiver/go-iolsep v0.0.0-20240403200747-06510a3258fa
 	github.com/reiver/go-iopsep v0.0.0-20240403200735-607acd3df170
-	github.com/reiver/go-path v0.0.0-20240228195003-c9685181c3a3
+	github.com/reiver/go-path v0.0.0-20240327181650-5f2ee05890d8
 	github.com/reiver/go-peek v0.0.0-20240404231846-cdb8a84b0a23
 	github.com/reiver/go-skip v0.0.0-20240502143132-534e2b40ea14
 	github.com/reiver/go-unicode v0.0.0-20240330202432-e385f372c7f8
