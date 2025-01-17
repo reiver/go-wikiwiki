@@ -3,7 +3,7 @@ package wikiwikihtmlcode
 import (
 	"io"
 
-	"sourcecode.social/reiver/go-erorr"
+	"github.com/reiver/go-erorr"
 
 	"github.com/reiver/go-wikiwiki/renderer"
 	"github.com/reiver/go-wikiwiki/renderer/html/rune"

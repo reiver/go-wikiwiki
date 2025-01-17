@@ -10,7 +10,7 @@ import (
 	"github.com/reiver/go-peek"
 	"github.com/reiver/go-skip"
 	"github.com/reiver/go-unicode"
-	"sourcecode.social/reiver/go-erorr"
+	"github.com/reiver/go-erorr"
 	"sourcecode.social/reiver/go-utf8"
 
 	"github.com/reiver/go-wikiwiki/html/paragraph"

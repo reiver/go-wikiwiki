@@ -10,7 +10,7 @@ import (
 	"github.com/reiver/go-path"
 	"github.com/reiver/go-skip"
 	"github.com/reiver/go-unicode"
-	"sourcecode.social/reiver/go-erorr"
+	"github.com/reiver/go-erorr"
 )
 
 func transcodeInsertion(writer io.Writer, runescanner io.RuneScanner) (err error) {
